@@ -34,9 +34,9 @@ window.MJG_CONFIG = {
      Deploy backend/google-apps-script.gs as a Web App, paste its /exec URL
      here, set enabled:true, and set the same token in the Apps Script.     */
   sheets: {
-    enabled: false,
-    webAppUrl: '',      // e.g. https://script.google.com/macros/s/AKfy.../exec
-    token: ''           // shared secret; must match TOKEN in the Apps Script
+    enabled: true,
+    webAppUrl: 'https://script.google.com/macros/s/AKfycbxBU3HywK3gNrRG0xk0kDK1DqwwUtBp9lk9xb6hz5lPp8im58gozYFBR46aq5ME9ZAr2A/exec',
+    token: ''           // ⚠ paste the SAME string as `var TOKEN` in your Apps Script (needed for admin "push to sheets")
   },
 
   map: {
