@@ -307,6 +307,10 @@
       });
       var ok = true;
       try { var j = await res.json(); ok = j && j.ok; } catch (e) { /* opaque = assume ok */ }
+      if (ok) {
+        // Update client cache with the data we just pushed
+        try { localStorage.setItem('mjg_sheets_cache_v1', JSON.stringify({ data: MJG.data, timestamp: Date.now() })); } catch (e) {}
+      }
       toast(ok ? 'pushed to Google Sheets ✓' : 'sheet rejected the request');
     } catch (e) {
       MJG.saveLocal(MJG.data);

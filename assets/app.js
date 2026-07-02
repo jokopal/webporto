@@ -6,6 +6,8 @@
 
   var CFG = window.MJG_CONFIG;
   var LS_KEY = 'mjg_portfolio_data_v1';
+  var CACHE_KEY = 'mjg_sheets_cache_v1';
+  var CACHE_TTL = 5 * 60 * 1000;
 
   var MJG = window.MJG = {
     cfg: CFG,
@@ -13,7 +15,10 @@
     source: 'default',
     active: -1,
     map: null,
-    _popup: null
+    _popup: null,
+    _cache: null,
+    _cacheTimestamp: 0,
+    _isRefreshing: false
   };
 
   /* ---------- utils ---------- */
@@ -39,51 +44,162 @@
            Math.abs(lng).toFixed(2) + '°' + (lng < 0 ? 'W' : 'E');
   }
 
-  /* ---------- data loading: Sheets -> localStorage -> default ---------- */
-  MJG.loadData = async function () {
-    // 1) Google Sheets (live CMS for all visitors)
-    if (CFG.sheets && CFG.sheets.enabled && CFG.sheets.webAppUrl) {
-      try {
-        var url = CFG.sheets.webAppUrl + (CFG.sheets.webAppUrl.indexOf('?') >= 0 ? '&' : '?') + 'action=get&_=' + Date.now();
-        var res = await fetch(url, { method: 'GET', cache: 'no-store' });
-        if (res.ok) {
-          var json = await res.json();
-          if (json && json.ok && json.data) {
-            MJG.data = mergeDefaults(json.data);
-            MJG.source = 'google-sheets';
-            return;
-          }
+  /* ---------- cache helpers ---------- */
+  function readCache() {
+    try {
+      var raw = localStorage.getItem(CACHE_KEY);
+      if (raw) {
+        var parsed = JSON.parse(raw);
+        if (parsed.data && parsed.timestamp) {
+          MJG._cache = parsed.data;
+          MJG._cacheTimestamp = parsed.timestamp;
+          return true;
         }
-      } catch (e) { console.warn('[MJG] Sheets fetch failed, falling back.', e); }
+      }
+    } catch (e) { /* ignore */ }
+    return false;
+  }
+
+  function writeCache(data) {
+    try {
+      localStorage.setItem(CACHE_KEY, JSON.stringify({
+        data: data,
+        timestamp: Date.now()
+      }));
+    } catch (e) { console.warn('[MJG] Cache write failed', e); }
+  }
+
+  function isCacheFresh() {
+    return MJG._cache && (Date.now() - MJG._cacheTimestamp) < CACHE_TTL;
+  }
+
+  function getCacheAge() {
+    if (!MJG._cacheTimestamp) return null;
+    return Date.now() - MJG._cacheTimestamp;
+  }
+
+  /* ---------- data loading: Cache -> Sheets -> localStorage -> default ---------- */
+  MJG.loadData = async function () {
+    // 0) Read cache first (sync, instant)
+    var hasCache = readCache();
+
+    // 1) If cache is fresh, use it immediately and refresh in background
+    if (hasCache && isCacheFresh()) {
+      MJG.data = mergeDefaults(MJG._cache);
+      MJG.source = 'google-sheets (cached)';
+      MJG._refreshInBackground();
+      return;
     }
-    // 2) localStorage (admin edits in this browser)
+
+    // 2) If cache exists but stale, use it immediately AND fetch fresh
+    if (hasCache) {
+      MJG.data = mergeDefaults(MJG._cache);
+      MJG.source = 'google-sheets (stale)';
+      MJG._refreshInBackground();
+      return;
+    }
+
+    // 3) No cache — render INSTANTLY from local edits or built-in data, then
+    //    fetch from Sheets in the BACKGROUND. Never block first paint on the
+    //    slow Apps Script call (~1–8s: 302 redirect + server-side exec).
     try {
       var raw = localStorage.getItem(LS_KEY);
       if (raw) {
         MJG.data = mergeDefaults(JSON.parse(raw));
         MJG.source = 'local-edits';
-        return;
+        return; // admin's own edits win — don't overwrite with the sheet
       }
     } catch (e) { /* ignore */ }
-    // 3) default
     MJG.data = deepClone(window.DEFAULT_DATA);
     MJG.source = 'default';
+    MJG._refreshInBackground(); // pull the live sheet in, swap in when it arrives
   };
 
-  // Ensure every top-level key exists even if a partial object is loaded.
-  function mergeDefaults(d) {
-    var base = deepClone(window.DEFAULT_DATA);
-    if (!d || typeof d !== 'object') return base;
-    Object.keys(d).forEach(function (k) { base[k] = d[k]; });
-    // guard nested profile
-    base.profile = Object.assign({}, window.DEFAULT_DATA.profile, d.profile || {});
-    return base;
+  MJG._fetchFreshData = async function () {
+    if (!CFG.sheets || !CFG.sheets.enabled || !CFG.sheets.webAppUrl) return false;
+
+    try {
+      // Apps Script 302-redirects to a unique googleusercontent URL per request,
+      // so HTTP caching never applies anyway. Cache-bust to guarantee freshness;
+      // speed comes from the localStorage stale-while-revalidate layer, not HTTP.
+      var url = CFG.sheets.webAppUrl + (CFG.sheets.webAppUrl.indexOf('?') >= 0 ? '&' : '?') + 'action=get&_=' + Date.now();
+      var res = await fetch(url, { method: 'GET', cache: 'no-store' });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      var json = await res.json();
+      if (json && json.ok && json.data) {
+        MJG.data = mergeDefaults(json.data);
+        MJG.source = 'google-sheets';
+        writeCache(json.data);
+        MJG._cache = json.data;
+        MJG._cacheTimestamp = Date.now();
+        return true;
+      }
+    } catch (e) {
+      console.warn('[MJG] Sheets fetch failed.', e);
+    }
+    return false;
+  };
+
+  MJG._refreshInBackground = function () {
+    if (MJG._isRefreshing) return;
+    MJG._isRefreshing = true;
+    // Small delay to not block initial render
+    setTimeout(async function () {
+      var success = await MJG._fetchFreshData();
+      if (success && MJG.data) {
+        // Re-render with fresh data
+        MJG.renderAll();
+        MJG.source = 'google-sheets';
+        updateSourceBadge();
+      }
+      MJG._isRefreshing = false;
+    }, 100);
+  };
+
+  MJG.forceRefresh = async function () {
+    MJG._isRefreshing = true;
+    var success = await MJG._fetchFreshData();
+    if (success) {
+      MJG.renderAll();
+      MJG.source = 'google-sheets';
+      updateSourceBadge();
+    }
+    MJG._isRefreshing = false;
+    return success;
+  };
+
+  function updateSourceBadge() {
+    var badge = document.getElementById('src-badge');
+    if (!badge) return;
+    var labels = {
+      'google-sheets': 'Google Sheets',
+      'google-sheets (cached)': 'Google Sheets (cached)',
+      'google-sheets (stale)': 'Google Sheets (updating…)',
+      'local-edits': 'local edits',
+      'default': 'built-in data'
+    };
+    var age = getCacheAge();
+    var ageStr = age ? ' · ' + (age < 60000 ? 'just now' : age < 3600000 ? Math.round(age/60000) + 'm ago' : Math.round(age/3600000) + 'h ago') : '';
+    badge.innerHTML = 'data: <b>' + (labels[MJG.source] || MJG.source) + '</b>' + ageStr;
   }
 
   MJG.saveLocal = function (data) {
     try { localStorage.setItem(LS_KEY, JSON.stringify(data)); } catch (e) { console.warn(e); }
+    // Clear sheets cache when local edits are made
+    try { localStorage.removeItem(CACHE_KEY); } catch (e) {}
   };
   MJG.clearLocal = function () { try { localStorage.removeItem(LS_KEY); } catch (e) {} };
+
+  // Ensure every top-level key exists even if a partial object is loaded from
+  // the sheet or localStorage. (Restored: the caching refactor had dropped it,
+  // which made every Sheets fetch throw ReferenceError and silently fall back.)
+  function mergeDefaults(d) {
+    var base = deepClone(window.DEFAULT_DATA);
+    if (!d || typeof d !== 'object') return base;
+    Object.keys(d).forEach(function (k) { base[k] = d[k]; });
+    base.profile = Object.assign({}, window.DEFAULT_DATA.profile, d.profile || {});
+    return base;
+  }
 
   /* ============================================================
      RENDERERS
@@ -276,9 +392,7 @@
   }
 
   function renderMeta(d) {
-    var badge = el('src-badge');
-    var labels = { 'google-sheets': 'Google Sheets', 'local-edits': 'local edits', 'default': 'built-in data' };
-    badge.innerHTML = 'data: <b>' + (labels[MJG.source] || MJG.source) + '</b>';
+    updateSourceBadge();
   }
 
   function unique(a) { return a.filter(function (v, i) { return a.indexOf(v) === i; }); }
