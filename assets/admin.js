@@ -27,7 +27,7 @@
     ]},
     { key: 'experience', label: 'Experience', kind: 'objectList', fields: [
       { k: 'role', t: 'text' }, { k: 'org', t: 'text' }, { k: 'period', t: 'text' }, { k: 'loc', t: 'text' },
-      { k: 'type', t: 'text' }, { k: 'desc', t: 'area' }
+      { k: 'type', t: 'text' }, { k: 'link', t: 'text' }, { k: 'desc', t: 'area' }
     ]},
     { key: 'expertise', label: 'Expertise', kind: 'objectList', fields: [
       { k: 'code', t: 'text' }, { k: 'title', t: 'text' }, { k: 'desc', t: 'area' }, { k: 'tags', t: 'lines' }

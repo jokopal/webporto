@@ -44,8 +44,8 @@
     // 1) Google Sheets (live CMS for all visitors)
     if (CFG.sheets && CFG.sheets.enabled && CFG.sheets.webAppUrl) {
       try {
-        var url = CFG.sheets.webAppUrl + (CFG.sheets.webAppUrl.indexOf('?') >= 0 ? '&' : '?') + 'action=get';
-        var res = await fetch(url, { method: 'GET' });
+        var url = CFG.sheets.webAppUrl + (CFG.sheets.webAppUrl.indexOf('?') >= 0 ? '&' : '?') + 'action=get&_=' + Date.now();
+        var res = await fetch(url, { method: 'GET', cache: 'no-store' });
         if (res.ok) {
           var json = await res.json();
           if (json && json.ok && json.data) {
@@ -192,7 +192,9 @@
           '<div class="org">' + esc(e.org) + '</div></div>' +
           '<div class="meta">' + esc(e.period) + '<br>' + esc(e.loc || '') +
           '<br><span class="type">' + esc(e.type) + '</span></div>' +
-        '</div><div class="desc">' + esc(e.desc) + '</div></div></div>';
+        '</div><div class="desc">' + esc(e.desc) +
+          (e.link ? ' <a class="exp-link" href="' + esc(e.link) + '" target="_blank" rel="noopener">↗ ' + esc(linkHost(e.link)) + '</a>' : '') +
+        '</div></div></div>';
     }).join('') + '</div>';
     mount.innerHTML = filters + timeline;
     Array.prototype.forEach.call(mount.querySelectorAll('.exp-filter'), function (b) {
@@ -280,6 +282,7 @@
   }
 
   function unique(a) { return a.filter(function (v, i) { return a.indexOf(v) === i; }); }
+  function linkHost(u) { try { return new URL(u).hostname.replace(/^www\./, ''); } catch (e) { return 'open'; } }
 
   /* ============================================================
      MAP — pins are a REAL MapLibre GeoJSON layer (geo-registered)
@@ -309,8 +312,24 @@
     });
     MJG.map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
     MJG.map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-right');
-    MJG.map.on('load', function () { setupLayers(); });
+    // Add layers as soon as the style is ready. 'load' can be deferred when the
+    // tab is backgrounded, so also retry on 'styledata' and via a timed fallback.
+    MJG.map.on('load', tryLayers);
+    MJG.map.on('styledata', tryLayers);
+    var tries = 0;
+    (function poll() {
+      if (MJG.map && MJG.map.getLayer && MJG.map.getLayer('proj-circles')) return;
+      tryLayers();
+      if (tries++ < 40) setTimeout(poll, 400);
+    })();
   };
+
+  function tryLayers() {
+    var m = MJG.map;
+    if (!m || !m.isStyleLoaded || !m.isStyleLoaded()) return;
+    if (m.getSource('projects')) return;
+    try { setupLayers(); } catch (e) { /* style not ready yet; poll will retry */ }
+  }
 
   function accent() { return (MJG.data && MJG.data.profile && CFG.theme.accent) || '#E0533B'; }
 
