@@ -47,11 +47,28 @@ var SCHEMA = {
   tools:          { sheet: 'Tools',          mode: 'list' }
 };
 
+/* Server-side cache: reading all 13 sheets takes ~6s. CacheService serves a
+   cached JSON in ~200ms. Direct edits in the Sheet appear after CACHE_SECONDS;
+   a save via the site clears the cache immediately. */
+var CACHE_SECONDS = 60;
+var CACHE_KEY = 'mjg_data_json';
+
 /* ---------------- HTTP handlers ---------------- */
 function doGet(e) {
   var action = (e && e.parameter && e.parameter.action) || 'get';
-  if (action === 'get') return json({ ok: true, data: readAll() });
+  if (action === 'get') return json(getDataCached_(e && e.parameter && e.parameter.fresh));
   return json({ ok: false, error: 'unknown action' });
+}
+
+function getDataCached_(forceFresh) {
+  var cache = CacheService.getScriptCache();
+  if (!forceFresh) {
+    var hit = cache.get(CACHE_KEY);
+    if (hit) return { ok: true, data: JSON.parse(hit), cached: true };
+  }
+  var data = readAll();
+  try { cache.put(CACHE_KEY, JSON.stringify(data), CACHE_SECONDS); } catch (e) { /* >100KB or quota */ }
+  return { ok: true, data: data, cached: false };
 }
 
 function doPost(e) {
@@ -60,6 +77,7 @@ function doPost(e) {
     if (body.token !== TOKEN) return json({ ok: false, error: 'bad token' });
     if (body.action === 'save' && body.data) {
       writeAll(body.data);
+      try { CacheService.getScriptCache().remove(CACHE_KEY); } catch (e2) {} // reflect the write immediately
       return json({ ok: true, saved: true });
     }
     return json({ ok: false, error: 'unknown action' });
