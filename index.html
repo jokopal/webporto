@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Menliman Joyfal Gulo — GIS · Remote Sensing · Cartography</title>
-<meta name="description" content="Personal portfolio of Menliman Joyfal Gulo — Geographic Information Science undergraduate at Universitas Gadjah Mada. GIS, remote sensing (LiDAR/radar), cartography and Geo-AI.">
+<title>Menliman Joyfal Gulo | GIS, Remote Sensing & Geo-AI</title>
+<meta name="description" content="Personal portfolio of Menliman Joyfal Gulo. Geographic Information Science undergraduate at Universitas Gadjah Mada and independent GIS developer (Jokopal). GIS, remote sensing (Sentinel-2, LiDAR, radar), cartography and Geo-AI.">
 <meta name="author" content="Menliman Joyfal Gulo">
 <!-- Open Graph -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="Menliman Joyfal Gulo — GIS · Remote Sensing · Cartography">
+<meta property="og:title" content="Menliman Joyfal Gulo | GIS, Remote Sensing & Geo-AI">
 <meta property="og:description" content="Geo-AI · GIS · Remote Sensing · Cartography. Portfolio & field footprint across Indonesia.">
 <meta property="og:image" content="uploads/photo-1782995995213.png">
 
@@ -26,14 +26,15 @@
     <nav>
       <a href="#profile">profile</a>
       <a href="#map">field-map</a>
+      <a href="#products">products</a>
       <a href="#experience">experience</a>
       <a href="#expertise">expertise</a>
-      <a href="#education">education</a>
       <a href="#skills">skills</a>
     </nav>
     <div class="status">
       <span class="coord" id="tb-coord">7.77°S 110.38°E</span>
-      <span class="clock" id="tb-clock">--:--</span>
+      <button class="auto-btn" id="tb-auto" title="Auto-refresh live data every 5s"><span class="auto-dot"></span>auto: off</button>
+      <span class="clock" id="tb-clock">--:--:--</span>
     </div>
   </div>
 
@@ -44,7 +45,7 @@
   <section id="map" class="wrap">
     <div class="section-head">
       <h2>Field Footprint</h2>
-      <span class="note">// projects &amp; fieldwork across the archipelago — click a pin or card to fly</span>
+      <span class="note">// projects &amp; fieldwork across the archipelago. Click a pin or card to fly</span>
     </div>
     <div class="window">
       <div class="titlebar">
@@ -61,18 +62,27 @@
           </div>
         </div>
         <div class="map-list">
-          <div class="list-head">DIR /projects — <span id="proj-count">0</span> entries</div>
+          <div class="list-head">DIR /projects · <span id="proj-count">0</span> entries</div>
           <div id="proj-list"></div>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- ===== INDEPENDENT PRODUCTS ===== -->
+  <section id="products" class="wrap">
+    <div class="section-head">
+      <h2>Independent Products</h2>
+      <span class="note">// GIS apps &amp; tools I build and ship as Jokopal</span>
+    </div>
+    <div class="grid-auto" id="products-grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr))"></div>
+  </section>
+
   <!-- ===== EXPERIENCE ===== -->
   <section id="experience" class="wrap">
     <div class="section-head">
       <h2>Experience</h2>
-      <span class="note">// professional, research &amp; leadership roles — filter by type</span>
+      <span class="note">// professional, research &amp; leadership roles. Filter by type</span>
     </div>
     <div id="exp-mount"></div>
   </section>

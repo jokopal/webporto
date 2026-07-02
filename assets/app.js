@@ -209,6 +209,7 @@
     renderProfile(d);
     renderStats(d);
     renderProjectsList(d);
+    renderProducts(d);
     renderExperience(d);
     renderExpertise(d);
     renderEducation(d);
@@ -228,7 +229,7 @@
       folderCol('left', [['#profile', 'profile'], ['#map', 'works']]) +
       folderCol('right', [['#skills', 'contact'], ['#education', 'resume']]) +
       '<div class="window profile-window">' +
-        titlebar('C:\\MJG\\profile.exe', null, '— ▢ ✕') +
+        titlebar('C:\\MJG\\profile.exe', null, '· ▢ ✕') +
         '<div class="profile-body">' +
           '<div class="profile-photo"><div class="frame">' +
             '<img src="' + esc(p.photo) + '" alt="' + esc(p.firstName + ' ' + p.lastName) + '"></div></div>' +
@@ -248,7 +249,7 @@
       '</div>';
     // taskbar coord + headline title
     el('tb-coord').textContent = p.coordLabel;
-    document.title = p.firstName + ' ' + p.lastName + ' — GIS · Remote Sensing · Cartography';
+    document.title = p.firstName + ' ' + p.lastName + ' | GIS, Remote Sensing & Geo-AI';
   }
 
   function folderCol(side, items) {
@@ -291,6 +292,25 @@
     Array.prototype.forEach.call(list.querySelectorAll('.proj-item'), function (btn) {
       btn.addEventListener('click', function () { MJG.selectProject(+btn.getAttribute('data-i')); });
     });
+  }
+
+  function renderProducts(d) {
+    var host = el('products-grid');
+    if (!host) return;
+    host.innerHTML = (d.products || []).map(function (p) {
+      var tech = (p.tech || []).map(function (t) { return '<span class="tag">' + esc(t) + '</span>'; }).join('');
+      var link = p.link ? '<a class="prod-link" href="' + esc(p.link) + '" target="_blank" rel="noopener">↗ ' + esc(linkHost(p.link)) + '</a>' : '';
+      return '<div class="exp-card prod-card">' +
+        '<div class="titlebar simple"><span class="tag" style="background:var(--accent)"></span>' + esc(p.name) +
+          (p.status ? '<span class="prod-status">' + esc(p.status) + '</span>' : '') + '</div>' +
+        '<div class="body">' +
+          '<div class="prod-tagline">' + esc(p.tagline || '') + '</div>' +
+          (p.period ? '<div class="prod-period">' + esc(p.period) + '</div>' : '') +
+          '<p>' + esc(p.desc || '') + '</p>' +
+          '<div class="tags">' + tech + '</div>' +
+          link +
+        '</div></div>';
+    }).join('');
   }
 
   function renderExperience(d) {
@@ -556,7 +576,30 @@
 
   function tick() {
     var d = new Date();
-    el('tb-clock').textContent = String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+    var c = el('tb-clock');
+    if (c) c.textContent = String(d.getHours()).padStart(2, '0') + ':' +
+      String(d.getMinutes()).padStart(2, '0') + ':' + String(d.getSeconds()).padStart(2, '0');
+  }
+
+  /* ---------- auto-refresh (pull live sheet every N seconds) ---------- */
+  MJG._autoOn = false;
+  MJG._autoTimer = null;
+  MJG.setAuto = function (on) {
+    MJG._autoOn = on;
+    var btn = el('tb-auto');
+    if (btn) { btn.classList.toggle('on', on); btn.innerHTML = '<span class="auto-dot"></span>auto: ' + (on ? 'on' : 'off'); }
+    if (MJG._autoTimer) { clearInterval(MJG._autoTimer); MJG._autoTimer = null; }
+    if (on) {
+      var sec = (CFG.autoRefresh && CFG.autoRefresh.seconds) || 5;
+      var pull = function () { if (!MJG._isRefreshing && CFG.sheets && CFG.sheets.enabled && CFG.sheets.webAppUrl) MJG.forceRefresh(); };
+      pull(); // refresh immediately on enable
+      MJG._autoTimer = setInterval(pull, sec * 1000);
+    }
+  };
+  function initAuto() {
+    var btn = el('tb-auto');
+    if (btn) btn.addEventListener('click', function () { MJG.setAuto(!MJG._autoOn); });
+    if (CFG.autoRefresh && CFG.autoRefresh.defaultOn) MJG.setAuto(true);
   }
 
   function waitMap(tries) {
@@ -569,7 +612,8 @@
   MJG.boot = async function () {
     await MJG.loadData();
     MJG.renderAll();
-    tick(); setInterval(tick, 30000);
+    tick(); setInterval(tick, 1000);
+    initAuto();
     waitMap();
     if (window.MJGAdmin) window.MJGAdmin.init();
   };

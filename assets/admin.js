@@ -25,6 +25,10 @@
       { k: 'name', t: 'text' }, { k: 'org', t: 'text' }, { k: 'period', t: 'text' }, { k: 'place', t: 'text' },
       { k: 'lng', t: 'num' }, { k: 'lat', t: 'num' }, { k: 'blurb', t: 'area' }
     ]},
+    { key: 'products', label: 'Products', kind: 'objectList', fields: [
+      { k: 'name', t: 'text' }, { k: 'tagline', t: 'text' }, { k: 'status', t: 'text' },
+      { k: 'period', t: 'text' }, { k: 'link', t: 'text' }, { k: 'tech', t: 'lines' }, { k: 'desc', t: 'area' }
+    ]},
     { key: 'experience', label: 'Experience', kind: 'objectList', fields: [
       { k: 'role', t: 'text' }, { k: 'org', t: 'text' }, { k: 'period', t: 'text' }, { k: 'loc', t: 'text' },
       { k: 'type', t: 'text' }, { k: 'link', t: 'text' }, { k: 'desc', t: 'area' }
