@@ -1,0 +1,19 @@
+# OS / editor junk
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*~
+
+# Node (not used, but just in case)
+node_modules/
+
+# Local tooling / preview
+.claude/
+
+# Personal / unused source assets — NOT for a public site.
+# (the site only uses uploads/photo-1782995995213.png)
+uploads/Profile_02-07-2026.pdf
+uploads/Style guides AI design_ Demonstrate focus clearly.jpg
+uploads/Web Portfolio 2.jpg
+uploads/download.jpg

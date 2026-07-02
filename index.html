@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Menliman Joyfal Gulo — GIS · Remote Sensing · Cartography</title>
+<meta name="description" content="Personal portfolio of Menliman Joyfal Gulo — Geographic Information Science undergraduate at Universitas Gadjah Mada. GIS, remote sensing (LiDAR/radar), cartography and Geo-AI.">
+<meta name="author" content="Menliman Joyfal Gulo">
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Menliman Joyfal Gulo — GIS · Remote Sensing · Cartography">
+<meta property="og:description" content="Geo-AI · GIS · Remote Sensing · Cartography. Portfolio & field footprint across Indonesia.">
+<meta property="og:image" content="uploads/photo-1782995995213.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+  <!-- ===== TASKBAR ===== -->
+  <div class="taskbar">
+    <div class="logo" id="tb-logo" title="MJG_OS"><span class="dot"></span>MJG_OS</div>
+    <nav>
+      <a href="#profile">profile</a>
+      <a href="#map">field-map</a>
+      <a href="#experience">experience</a>
+      <a href="#expertise">expertise</a>
+      <a href="#education">education</a>
+      <a href="#skills">skills</a>
+    </nav>
+    <div class="status">
+      <span class="coord" id="tb-coord">7.77°S 110.38°E</span>
+      <span class="clock" id="tb-clock">--:--</span>
+    </div>
+  </div>
+
+  <!-- ===== HERO / PROFILE (rendered by app.js) ===== -->
+  <section id="profile" class="hero"><div id="hero-mount"></div></section>
+
+  <!-- ===== FIELD MAP ===== -->
+  <section id="map" class="wrap">
+    <div class="section-head">
+      <h2>Field Footprint</h2>
+      <span class="note">// projects &amp; fieldwork across the archipelago — click a pin or card to fly</span>
+    </div>
+    <div class="window">
+      <div class="titlebar">
+        <span class="lights"><span style="background:var(--accent)"></span><span style="background:var(--gold)"></span><span style="background:var(--olive)"></span></span>
+        <span class="path">C:\MJG\project-map.gis</span>
+        <span class="right">EPSG:4326 · WGS84</span>
+      </div>
+      <div class="map-wrap">
+        <div class="map-panel">
+          <div id="mjg-map"></div>
+          <div class="map-legend">
+            <div class="row"><span class="marker"></span>project site</div>
+            <div style="margin-top:4px;">basemap: CARTO · OSM</div>
+          </div>
+        </div>
+        <div class="map-list">
+          <div class="list-head">DIR /projects — <span id="proj-count">0</span> entries</div>
+          <div id="proj-list"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== EXPERIENCE ===== -->
+  <section id="experience" class="wrap">
+    <div class="section-head">
+      <h2>Experience</h2>
+      <span class="note">// professional, research &amp; leadership roles — filter by type</span>
+    </div>
+    <div id="exp-mount"></div>
+  </section>
+
+  <!-- ===== EXPERTISE ===== -->
+  <section id="expertise" class="wrap">
+    <div class="section-head">
+      <h2>Expertise</h2>
+      <span class="note">// four domains I work across</span>
+    </div>
+    <div class="grid-auto" id="expertise-grid"></div>
+  </section>
+
+  <!-- ===== EDUCATION + HONORS ===== -->
+  <section id="education" class="wrap">
+    <div class="two-col">
+      <div>
+        <div class="section-head"><h2>Education</h2></div>
+        <div class="timeline"><div class="rail"></div><div id="edu-mount"></div></div>
+      </div>
+      <div class="window sm">
+        <div class="titlebar simple"><span class="tag" style="background:var(--gold)"></span>C:\MJG\honors-and-publications.log</div>
+        <div class="log-body" id="log-mount"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SKILLS ===== -->
+  <section id="skills" class="wrap">
+    <div class="section-head">
+      <h2>Skills</h2>
+      <span class="note">// tools, competencies, languages</span>
+    </div>
+    <div class="grid-auto" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
+      <div class="window sm">
+        <div class="titlebar simple"><span class="tag" style="background:var(--accent)"></span>hard-skills.sys</div>
+        <div class="log-body" id="hard-mount"></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:20px;">
+        <div class="window sm">
+          <div class="titlebar simple"><span class="tag" style="background:var(--olive)"></span>soft-skills.cfg</div>
+          <div class="soft-grid" id="soft-mount"></div>
+        </div>
+        <div class="window sm">
+          <div class="titlebar simple"><span class="tag" style="background:var(--gold)"></span>toolbox &amp; languages</div>
+          <div class="log-body">
+            <div class="tags" id="tools-mount"></div>
+            <div class="divider"></div>
+            <div id="lang-mount"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site">
+    <div class="footer-win">
+      <div class="footer-bar">
+        <span class="lights"><span style="background:var(--accent)"></span><span style="background:var(--gold)"></span><span style="background:var(--olive)"></span></span>
+        <span style="margin-left:6px;">C:\MJG\contact.exe</span>
+      </div>
+      <div class="footer-body">
+        <div>
+          <div class="cta">&gt; let's map something together</div>
+          <div class="big" id="footer-name">Menliman Joyfal Gulo<span class="accent">_</span></div>
+        </div>
+        <div id="footer-mount"></div>
+      </div>
+      <div class="footer-foot">Kartografi &amp; Penginderaan Jauh · Universitas Gadjah Mada · basemap © CARTO, © OpenStreetMap contributors · <span id="mjg-year"></span></div>
+    </div>
+  </footer>
+
+  <div class="src-badge" id="src-badge">data: <b>built-in</b></div>
+
+  <!-- MapLibre + app -->
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+  <script src="assets/config.js"></script>
+  <script src="assets/admin.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>

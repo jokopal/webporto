@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet">
+<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<style>
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;}
+  @keyframes mjgpulse{0%{box-shadow:0 0 0 0 rgba(224,83,59,0.5);}70%{box-shadow:0 0 0 12px rgba(224,83,59,0);}100%{box-shadow:0 0 0 0 rgba(224,83,59,0);}}
+  @keyframes mjgblink{0%,49%{opacity:1;}50%,100%{opacity:0;}}
+  .maplibregl-popup-content{font-family:'Space Grotesk',sans-serif;border:1.5px solid #211E19;border-radius:6px;box-shadow:4px 4px 0 rgba(33,30,25,0.12);padding:0;overflow:hidden;background:#FBF7EF;}
+  .maplibregl-popup-tip{border-top-color:#211E19 !important;}
+  .maplibregl-ctrl-group{border:1.5px solid #211E19 !important;border-radius:6px !important;box-shadow:3px 3px 0 rgba(33,30,25,0.12) !important;}
+  .mjg-pin{cursor:pointer;transition:transform .15s ease;}
+  .mjg-pin:hover{transform:scale(1.18);z-index:5;}
+</style>
+</helmet>
+
+<div id="mjg-root" style="--cream:#F4EEE2;--panel:#FBF7EF;--ink:#211E19;--soft:#726B5F;--line:#211E19;--accent:#E0533B;--olive:#5F6348;--paper:rgba(33,30,25,0.05);background-color:var(--cream);background-image:linear-gradient(var(--paper) 1px,transparent 1px),linear-gradient(90deg,var(--paper) 1px,transparent 1px);background-size:28px 28px;font-family:'Space Grotesk',sans-serif;color:var(--ink);min-height:100vh;">
+
+  <!-- ===== TASKBAR ===== -->
+  <div style="position:sticky;top:0;z-index:60;display:flex;align-items:center;gap:14px;padding:9px 18px;background:var(--ink);color:var(--cream);border-bottom:1.5px solid var(--ink);">
+    <div style="display:flex;align-items:center;gap:8px;background:var(--accent);color:#fff;padding:5px 11px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:12px;letter-spacing:.06em;">
+      <span style="width:9px;height:9px;background:#fff;display:inline-block;"></span>MJG_OS
+    </div>
+    <div style="display:flex;gap:4px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;">
+      <a href="#profile" style="color:var(--cream);text-decoration:none;padding:5px 10px;border-radius:4px;opacity:.85;" style-hover="background:rgba(255,255,255,0.12);opacity:1;">profile</a>
+      <a href="#map" style="color:var(--cream);text-decoration:none;padding:5px 10px;border-radius:4px;opacity:.85;" style-hover="background:rgba(255,255,255,0.12);opacity:1;">field-map</a>
+      <a href="#expertise" style="color:var(--cream);text-decoration:none;padding:5px 10px;border-radius:4px;opacity:.85;" style-hover="background:rgba(255,255,255,0.12);opacity:1;">expertise</a>
+      <a href="#education" style="color:var(--cream);text-decoration:none;padding:5px 10px;border-radius:4px;opacity:.85;" style-hover="background:rgba(255,255,255,0.12);opacity:1;">education</a>
+      <a href="#skills" style="color:var(--cream);text-decoration:none;padding:5px 10px;border-radius:4px;opacity:.85;" style-hover="background:rgba(255,255,255,0.12);opacity:1;">skills</a>
+    </div>
+    <div style="margin-left:auto;display:flex;align-items:center;gap:12px;font-family:'JetBrains Mono',monospace;font-size:12px;">
+      <span style="opacity:.7;">7.62°S 110.38°E</span>
+      <span style="background:rgba(255,255,255,0.1);padding:5px 10px;border-radius:4px;">{{ clock }}</span>
+    </div>
+  </div>
+
+  <!-- ===== HERO / PROFILE ===== -->
+  <section id="profile" data-screen-label="Profile" style="max-width:1180px;margin:0 auto;padding:56px 28px 30px;position:relative;">
+    <div style="font-family:'Space Grotesk',sans-serif;font-weight:400;font-size:clamp(56px,13vw,150px);letter-spacing:.14em;color:rgba(33,30,25,0.07);line-height:.9;text-align:center;user-select:none;">PORTFOLIO</div>
+
+    <!-- floating folder chips -->
+    <div style="position:absolute;top:44px;left:28px;display:flex;flex-direction:column;gap:20px;">
+      <a href="#profile" style="text-decoration:none;text-align:center;">
+        <div style="width:52px;height:44px;position:relative;margin:0 auto;">
+          <div style="position:absolute;top:0;left:0;width:24px;height:9px;background:var(--olive);border-radius:4px 6px 0 0;"></div>
+          <div style="position:absolute;top:6px;left:0;width:52px;height:38px;background:#EFD98A;border:1.5px solid var(--ink);border-radius:3px 6px 6px 6px;"></div>
+        </div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--soft);margin-top:5px;">profile</div>
+      </a>
+      <a href="#map" style="text-decoration:none;text-align:center;">
+        <div style="width:52px;height:44px;position:relative;margin:0 auto;">
+          <div style="position:absolute;top:0;left:0;width:24px;height:9px;background:var(--olive);border-radius:4px 6px 0 0;"></div>
+          <div style="position:absolute;top:6px;left:0;width:52px;height:38px;background:#EFD98A;border:1.5px solid var(--ink);border-radius:3px 6px 6px 6px;"></div>
+        </div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--soft);margin-top:5px;">works</div>
+      </a>
+    </div>
+    <div style="position:absolute;top:44px;right:28px;display:flex;flex-direction:column;gap:20px;">
+      <a href="#skills" style="text-decoration:none;text-align:center;">
+        <div style="width:52px;height:44px;position:relative;margin:0 auto;">
+          <div style="position:absolute;top:0;left:0;width:24px;height:9px;background:var(--olive);border-radius:4px 6px 0 0;"></div>
+          <div style="position:absolute;top:6px;left:0;width:52px;height:38px;background:#EFD98A;border:1.5px solid var(--ink);border-radius:3px 6px 6px 6px;"></div>
+        </div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--soft);margin-top:5px;">contact</div>
+      </a>
+      <a href="#education" style="text-decoration:none;text-align:center;">
+        <div style="width:52px;height:44px;position:relative;margin:0 auto;">
+          <div style="position:absolute;top:0;left:0;width:24px;height:9px;background:var(--olive);border-radius:4px 6px 0 0;"></div>
+          <div style="position:absolute;top:6px;left:0;width:52px;height:38px;background:#EFD98A;border:1.5px solid var(--ink);border-radius:3px 6px 6px 6px;"></div>
+        </div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--soft);margin-top:5px;">resume</div>
+      </a>
+    </div>
+
+    <!-- main profile window -->
+    <div style="max-width:840px;margin:22px auto 0;background:var(--panel);border:1.5px solid var(--line);border-radius:8px;box-shadow:5px 5px 0 rgba(33,30,25,0.12);overflow:hidden;">
+      <div style="display:flex;align-items:center;gap:9px;padding:9px 13px;background:var(--ink);color:var(--cream);">
+        <span style="width:11px;height:11px;border-radius:50%;background:var(--accent);"></span>
+        <span style="width:11px;height:11px;border-radius:50%;background:#E9C46A;"></span>
+        <span style="width:11px;height:11px;border-radius:50%;background:var(--olive);"></span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:12.5px;margin-left:6px;letter-spacing:.02em;">C:\MJG\profile.exe</span>
+        <span style="margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:13px;opacity:.7;letter-spacing:.15em;">— ▢ ✕</span>
+      </div>
+      <div style="display:flex;gap:28px;padding:30px 32px;flex-wrap:wrap;align-items:center;">
+        <div style="flex:0 0 200px;max-width:200px;">
+          <div style="background:var(--olive);border:1.5px solid var(--line);border-radius:8px;padding:10px 10px 0;overflow:hidden;">
+            <img src="uploads/photo-1782995995213.png" alt="Menliman Joyfal Gulo" style="display:block;width:100%;height:auto;filter:contrast(1.02);">
+          </div>
+        </div>
+        <div style="flex:1;min-width:260px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--soft);margin-bottom:6px;">hi, i&#39;m</div>
+          <h1 style="margin:0;font-size:clamp(30px,4.6vw,46px);font-weight:700;line-height:1.02;letter-spacing:-.01em;">Menliman Joyfal <span style="color:var(--accent);">Gulo</span></h1>
+          <div style="display:inline-block;margin-top:12px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;letter-spacing:.05em;background:var(--ink);color:var(--cream);padding:6px 11px;border-radius:4px;">GIS · REMOTE SENSING · CARTOGRAPHY</div>
+          <p style="margin:16px 0 0;font-size:15px;line-height:1.6;color:#3b362e;max-width:44ch;">Geographic Information Science undergraduate at Universitas Gadjah Mada — building Geo-AI solutions across coastal, agricultural, and environmental mapping with LiDAR, radar, and satellite imagery.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:9px;margin-top:20px;">
+            <a href="mailto:menlimanjoyfalgulo@gmail.com" style="text-decoration:none;color:var(--ink);font-family:'JetBrains Mono',monospace;font-size:12px;border:1.5px solid var(--line);border-radius:5px;padding:7px 12px;display:inline-flex;align-items:center;gap:7px;background:var(--cream);" style-hover="background:var(--accent);color:#fff;border-color:var(--accent);"><span style="width:7px;height:7px;background:currentColor;display:inline-block;"></span>email</a>
+            <a href="https://www.linkedin.com/in/menlimanjoyfalgulo" target="_blank" style="text-decoration:none;color:var(--ink);font-family:'JetBrains Mono',monospace;font-size:12px;border:1.5px solid var(--line);border-radius:5px;padding:7px 12px;display:inline-flex;align-items:center;gap:7px;background:var(--cream);" style-hover="background:var(--accent);color:#fff;border-color:var(--accent);"><span style="width:7px;height:7px;background:currentColor;display:inline-block;"></span>linkedin</a>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12px;border:1.5px solid var(--line);border-radius:5px;padding:7px 12px;display:inline-flex;align-items:center;gap:7px;background:var(--cream);color:var(--soft);"><span style="width:7px;height:7px;background:var(--olive);display:inline-block;"></span>Yogyakarta, ID</span>
+          </div>
+        </div>
+      </div>
+      <div style="border-top:1.5px solid var(--line);background:var(--cream);display:flex;flex-wrap:wrap;">
+        <div style="flex:1;min-width:140px;padding:13px 18px;border-right:1.5px solid var(--line);">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:var(--accent);">17+</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--soft);">field & lab roles</div>
+        </div>
+        <div style="flex:1;min-width:140px;padding:13px 18px;border-right:1.5px solid var(--line);">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:var(--accent);">4</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--soft);">publications</div>
+        </div>
+        <div style="flex:1;min-width:140px;padding:13px 18px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:var(--accent);">5</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--soft);">national awards</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FIELD MAP ===== -->
+  <section id="map" data-screen-label="Field Map" style="max-width:1180px;margin:0 auto;padding:44px 28px;">
+    <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:16px;flex-wrap:wrap;">
+      <h2 style="margin:0;font-size:clamp(24px,3vw,34px);font-weight:700;letter-spacing:-.01em;">Field Footprint</h2>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--soft);">// projects & fieldwork across the archipelago — click a pin or card to fly</span>
+    </div>
+    <div style="background:var(--panel);border:1.5px solid var(--line);border-radius:8px;box-shadow:5px 5px 0 rgba(33,30,25,0.12);overflow:hidden;">
+      <div style="display:flex;align-items:center;gap:9px;padding:9px 13px;background:var(--ink);color:var(--cream);">
+        <span style="width:11px;height:11px;border-radius:50%;background:var(--accent);"></span>
+        <span style="width:11px;height:11px;border-radius:50%;background:#E9C46A;"></span>
+        <span style="width:11px;height:11px;border-radius:50%;background:var(--olive);"></span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:12.5px;margin-left:6px;">C:\MJG\project-map.gis</span>
+        <span style="margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:12px;opacity:.7;">EPSG:4326 · WGS84</span>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;">
+        <div style="flex:1;min-width:300px;position:relative;">
+          <div id="mjg-map" style="width:100%;height:520px;background:var(--cream);"></div>
+          <div style="position:absolute;left:12px;bottom:12px;background:var(--panel);border:1.5px solid var(--line);border-radius:6px;padding:9px 12px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--soft);box-shadow:3px 3px 0 rgba(33,30,25,0.1);">
+            <div style="display:flex;align-items:center;gap:7px;color:var(--ink);"><span style="width:11px;height:11px;background:var(--accent);border:1.5px solid var(--line);border-radius:50% 50% 50% 0;transform:rotate(45deg);display:inline-block;"></span>project site</div>
+            <div style="margin-top:4px;">basemap: CARTO · OSM</div>
+          </div>
+        </div>
+        <div style="flex:0 0 340px;max-width:100%;border-left:1.5px solid var(--line);max-height:520px;overflow-y:auto;background:var(--cream);">
+          <div style="padding:11px 15px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--soft);border-bottom:1.5px solid var(--line);position:sticky;top:0;background:var(--cream);">DIR /projects — {{ projectCount }} entries</div>
+          <sc-for list="{{ projects }}" as="p" hint-placeholder-count="6">
+            <button onClick="{{ p.onSelect }}" style="all:unset;display:block;width:100%;box-sizing:border-box;cursor:pointer;padding:14px 15px;border-bottom:1.5px solid rgba(33,30,25,0.12);border-left:4px solid {{ p.edge }};background:{{ p.bg }};" style-hover="background:#fff;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span style="font-family:'JetBrains Mono',monospace;font-size:11px;background:var(--ink);color:var(--cream);width:20px;height:20px;border-radius:4px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;">{{ p.num }}</span>
+                <span style="font-weight:600;font-size:14px;line-height:1.2;">{{ p.name }}</span>
+              </div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);margin:6px 0 0 28px;">{{ p.org }} · {{ p.period }}</div>
+              <div style="font-size:12px;color:#4a463d;line-height:1.45;margin:5px 0 0 28px;">{{ p.blurb }}</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--soft);margin:6px 0 0 28px;">{{ p.coordLabel }}</div>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== EXPERTISE ===== -->
+  <section id="expertise" data-screen-label="Expertise" style="max-width:1180px;margin:0 auto;padding:44px 28px;">
+    <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:20px;flex-wrap:wrap;">
+      <h2 style="margin:0;font-size:clamp(24px,3vw,34px);font-weight:700;letter-spacing:-.01em;">Expertise</h2>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--soft);">// four domains I work across</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;">
+      <sc-for list="{{ expertise }}" as="e" hint-placeholder-count="4">
+        <div style="background:var(--panel);border:1.5px solid var(--line);border-radius:8px;box-shadow:4px 4px 0 rgba(33,30,25,0.1);overflow:hidden;display:flex;flex-direction:column;">
+          <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--ink);color:var(--cream);font-family:'JetBrains Mono',monospace;font-size:11.5px;">
+            <span style="width:8px;height:8px;background:var(--accent);display:inline-block;"></span>{{ e.code }}
+          </div>
+          <div style="padding:18px 18px 20px;flex:1;">
+            <h3 style="margin:0 0 8px;font-size:19px;font-weight:700;">{{ e.title }}</h3>
+            <p style="margin:0 0 14px;font-size:13.5px;line-height:1.55;color:#4a463d;">{{ e.desc }}</p>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;">
+              <sc-for list="{{ e.tags }}" as="t" hint-placeholder-count="3">
+                <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;background:var(--cream);border:1.5px solid var(--line);border-radius:4px;padding:3px 8px;">{{ t }}</span>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- ===== EDUCATION + AWARDS ===== -->
+  <section id="education" data-screen-label="Education" style="max-width:1180px;margin:0 auto;padding:44px 28px;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;align-items:start;">
+
+      <div>
+        <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:18px;">
+          <h2 style="margin:0;font-size:clamp(24px,3vw,34px);font-weight:700;letter-spacing:-.01em;">Education</h2>
+        </div>
+        <div style="position:relative;padding-left:26px;">
+          <div style="position:absolute;left:6px;top:6px;bottom:6px;width:2px;background:var(--line);"></div>
+          <sc-for list="{{ education }}" as="ed" hint-placeholder-count="2">
+            <div style="position:relative;margin-bottom:22px;">
+              <span style="position:absolute;left:-26px;top:4px;width:13px;height:13px;background:var(--accent);border:1.5px solid var(--line);border-radius:50%;"></span>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);">{{ ed.period }}</div>
+              <div style="font-weight:700;font-size:16px;margin-top:3px;">{{ ed.school }}</div>
+              <div style="font-size:13.5px;color:#4a463d;margin-top:2px;">{{ ed.degree }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="background:var(--panel);border:1.5px solid var(--line);border-radius:8px;box-shadow:4px 4px 0 rgba(33,30,25,0.1);overflow:hidden;">
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--ink);color:var(--cream);font-family:'JetBrains Mono',monospace;font-size:11.5px;"><span style="width:8px;height:8px;background:#E9C46A;display:inline-block;"></span>C:\MJG\honors-and-publications.log</div>
+        <div style="padding:18px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--soft);margin-bottom:9px;">// awards</div>
+          <sc-for list="{{ awards }}" as="a" hint-placeholder-count="4">
+            <div style="display:flex;gap:9px;font-size:13px;line-height:1.4;margin-bottom:8px;"><span style="color:var(--accent);font-weight:700;">◆</span><span>{{ a }}</span></div>
+          </sc-for>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--soft);margin:16px 0 9px;">// selected publications</div>
+          <sc-for list="{{ pubs }}" as="pub" hint-placeholder-count="3">
+            <div style="display:flex;gap:9px;font-size:13px;line-height:1.4;margin-bottom:8px;"><span style="color:var(--olive);font-weight:700;">›</span><span>{{ pub }}</span></div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SKILLS ===== -->
+  <section id="skills" data-screen-label="Skills" style="max-width:1180px;margin:0 auto;padding:44px 28px 20px;">
+    <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:20px;flex-wrap:wrap;">
+      <h2 style="margin:0;font-size:clamp(24px,3vw,34px);font-weight:700;letter-spacing:-.01em;">Skills</h2>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--soft);">// tools, competencies, languages</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;">
+
+      <!-- hard skills window -->
+      <div style="background:var(--panel);border:1.5px solid var(--line);border-radius:8px;box-shadow:4px 4px 0 rgba(33,30,25,0.1);overflow:hidden;">
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--ink);color:var(--cream);font-family:'JetBrains Mono',monospace;font-size:11.5px;"><span style="width:8px;height:8px;background:var(--accent);display:inline-block;"></span>hard-skills.sys</div>
+        <div style="padding:18px;">
+          <sc-for list="{{ hardSkills }}" as="h" hint-placeholder-count="6">
+            <div style="margin-bottom:13px;">
+              <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px;"><span style="font-weight:600;">{{ h.name }}</span><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--soft);">{{ h.lvl }}</span></div>
+              <div style="height:9px;background:var(--cream);border:1.5px solid var(--line);border-radius:3px;overflow:hidden;">
+                <div style="height:100%;width:{{ h.pct }};background:var(--accent);"></div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:20px;">
+        <!-- soft skills -->
+        <div style="background:var(--panel);border:1.5px solid var(--line);border-radius:8px;box-shadow:4px 4px 0 rgba(33,30,25,0.1);overflow:hidden;">
+          <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--ink);color:var(--cream);font-family:'JetBrains Mono',monospace;font-size:11.5px;"><span style="width:8px;height:8px;background:var(--olive);display:inline-block;"></span>soft-skills.cfg</div>
+          <div style="padding:16px 18px;display:grid;grid-template-columns:1fr 1fr;gap:9px 14px;">
+            <sc-for list="{{ softSkills }}" as="s" hint-placeholder-count="6">
+              <div style="display:flex;align-items:center;gap:9px;font-size:13px;">
+                <span style="width:17px;height:17px;background:var(--accent);border:1.5px solid var(--line);border-radius:3px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:700;flex:0 0 auto;">✓</span>{{ s }}
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <!-- tools + languages -->
+        <div style="background:var(--panel);border:1.5px solid var(--line);border-radius:8px;box-shadow:4px 4px 0 rgba(33,30,25,0.1);overflow:hidden;">
+          <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--ink);color:var(--cream);font-family:'JetBrains Mono',monospace;font-size:11.5px;"><span style="width:8px;height:8px;background:#E9C46A;display:inline-block;"></span>toolbox &amp; languages</div>
+          <div style="padding:16px 18px;">
+            <div style="display:flex;flex-wrap:wrap;gap:7px;">
+              <sc-for list="{{ tools }}" as="t" hint-placeholder-count="8">
+                <span style="font-family:'JetBrains Mono',monospace;font-size:11px;background:var(--cream);border:1.5px solid var(--line);border-radius:4px;padding:4px 9px;">{{ t }}</span>
+              </sc-for>
+            </div>
+            <div style="height:1.5px;background:rgba(33,30,25,0.12);margin:15px 0;"></div>
+            <div style="display:flex;flex-direction:column;gap:7px;">
+              <sc-for list="{{ languages }}" as="l" hint-placeholder-count="3">
+                <div style="display:flex;justify-content:space-between;font-size:13px;"><span style="font-weight:600;">{{ l.name }}</span><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--soft);">{{ l.level }}</span></div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer style="max-width:1180px;margin:0 auto;padding:24px 28px 60px;">
+    <div style="background:var(--ink);color:var(--cream);border:1.5px solid var(--line);border-radius:8px;box-shadow:5px 5px 0 rgba(33,30,25,0.12);overflow:hidden;">
+      <div style="display:flex;align-items:center;gap:9px;padding:9px 13px;border-bottom:1px solid rgba(255,255,255,0.14);font-family:'JetBrains Mono',monospace;font-size:12.5px;"><span style="width:11px;height:11px;border-radius:50%;background:var(--accent);"></span><span style="width:11px;height:11px;border-radius:50%;background:#E9C46A;"></span><span style="width:11px;height:11px;border-radius:50%;background:var(--olive);"></span><span style="margin-left:6px;">C:\MJG\contact.exe</span></div>
+      <div style="padding:34px 28px;display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between;">
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;opacity:.7;margin-bottom:6px;">&gt; let&#39;s map something together</div>
+          <div style="font-size:clamp(24px,4vw,38px);font-weight:700;line-height:1.05;">Menliman Joyfal Gulo<span style="color:var(--accent);">_</span></div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;">
+          <a href="mailto:menlimanjoyfalgulo@gmail.com" style="text-decoration:none;color:var(--ink);background:var(--accent);font-family:'JetBrains Mono',monospace;font-size:12px;border-radius:5px;padding:10px 15px;font-weight:500;" style-hover="background:#fff;">menlimanjoyfalgulo@gmail.com</a>
+          <a href="https://www.linkedin.com/in/menlimanjoyfalgulo" target="_blank" style="text-decoration:none;color:var(--cream);border:1.5px solid rgba(255,255,255,0.4);font-family:'JetBrains Mono',monospace;font-size:12px;border-radius:5px;padding:10px 15px;" style-hover="border-color:var(--accent);color:var(--accent);">/in/menlimanjoyfalgulo</a>
+        </div>
+      </div>
+      <div style="padding:11px 20px;border-top:1px solid rgba(255,255,255,0.14);font-family:'JetBrains Mono',monospace;font-size:10.5px;opacity:.55;">Kartografi &amp; Penginderaan Jauh · Universitas Gadjah Mada · basemap © CARTO, © OpenStreetMap contributors</div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1180,&quot;height&quot;:900},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#E0533B&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Theme&quot;},&quot;mapStyle&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Positron&quot;,&quot;Voyager&quot;,&quot;Dark&quot;],&quot;default&quot;:&quot;Positron&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Map&quot;},&quot;showGrid&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Theme&quot;}}">
+class Component extends DCLogic {
+  state = { clock: '', active: -1 };
+
+  accent() { return this.props.accent || '#E0533B'; }
+
+  styleUrl() {
+    const m = this.props.mapStyle || 'Positron';
+    if (m === 'Voyager') return 'https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json';
+    if (m === 'Dark') return 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json';
+    return 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json';
+  }
+
+  data() {
+    return [
+      { name: 'Blue Carbon Research & Geospatial Labs', org: 'Faculty of Geography, UGM', period: '2024–now', coord: [110.375, -7.775], place: 'Yogyakarta', blurb: 'Research assistant on blue-carbon mapping; instructor for LiDAR/radar remote sensing, cartography & spatial-database labs.' },
+      { name: 'Spatial Compliance Analyst', org: 'Berau Coal — Dept. License', period: '2025', coord: [117.30, 2.03], place: 'Berau, Kaltim', blurb: 'GIS & remote monitoring for mining-permit compliance; built spatial dashboards for permit boundaries & violation detection.' },
+      { name: 'IKN Deforestation & Air-Quality Study', org: 'Presented at BIG Geomatika VII', period: '2024', coord: [116.99, -0.94], place: 'IKN Nusantara, Kaltim', blurb: 'Lead author on air-concentration change from deforestation in the new-capital development zone; national proceedings.' },
+      { name: 'Flood Vulnerability Analysis', org: 'Bengawan Solo Watershed', period: '2024', coord: [110.83, -7.68], place: 'Sukoharjo, Central Java', blurb: 'Overlay-method flood vulnerability mapping integrating mass-media flood reporting.' },
+      { name: 'Tsunami Early-Warning Survey', org: 'CV. Spiro Energy · BPBD', period: '2025', coord: [109.01, -7.73], place: 'South Coast, Central Java', blurb: 'Field EWS surveyor: inspected siren/transmitter towers; radio-frequency programming with Motorola CPS for hazard mitigation.' },
+      { name: 'Geomatics Seminar VII — Presenter', org: 'Badan Informasi Geospasial', period: '2024', coord: [106.85, -6.48], place: 'Cibinong, West Java', blurb: 'Main author & presenter at the national geomatics forum on geospatial information for the archipelago capital.' },
+      { name: 'Roots — TKJ & First Maps', org: 'SMKN 1 Lolofitu Moi', period: '2019–22', coord: [97.72, 1.02], place: 'Nias Barat', blurb: 'Computer & network engineering foundation on Nias island — where the geospatial journey began.' }
+    ];
+  }
+
+  selectProject(i) {
+    this.setState({ active: i });
+    if (!this.map) return;
+    const p = this.data()[i];
+    this.map.flyTo({ center: p.coord, zoom: 6.4, speed: 1.1 });
+    if (this._popup) this._popup.remove();
+    this._popup = new maplibregl.Popup({ offset: 22, closeButton: false, maxWidth: '260px' })
+      .setLngLat(p.coord)
+      .setHTML('<div style="padding:11px 13px;font-family:\'Space Grotesk\',sans-serif;"><div style="font-family:\'JetBrains Mono\',monospace;font-size:10px;color:' + this.accent() + ';margin-bottom:3px;">' + p.place + '</div><div style="font-weight:700;font-size:14px;line-height:1.2;">' + p.name + '</div><div style="font-size:12px;color:#4a463d;margin-top:3px;">' + p.org + ' · ' + p.period + '</div></div>')
+      .addTo(this.map);
+  }
+
+  addMarkers() {
+    if (this._markers && this._markers.length) return;
+    this._markers = [];
+    this.data().forEach((p, i) => {
+      const el = document.createElement('div');
+      el.className = 'mjg-pin';
+      el.style.cssText = 'width:24px;height:24px;position:relative;';
+      el.innerHTML = '<div style="width:24px;height:24px;background:' + this.accent() + ';border:2px solid #211E19;border-radius:50% 50% 50% 0;transform:rotate(-45deg);display:flex;align-items:center;justify-content:center;box-shadow:2px 2px 0 rgba(33,30,25,0.2);"><span style="transform:rotate(45deg);color:#fff;font-family:monospace;font-size:11px;font-weight:700;">' + (i + 1) + '</span></div>';
+      el.addEventListener('click', (e) => { e.stopPropagation(); this.selectProject(i); });
+      const m = new maplibregl.Marker({ element: el, anchor: 'bottom' }).setLngLat(p.coord).addTo(this.map);
+      this._markers.push({ el, marker: m });
+    });
+  }
+
+  fitAll() {
+    if (this.map) this.map.fitBounds([[95, -9], [141, 6]], { padding: 46, duration: 0 });
+  }
+
+  initMap() {
+    const el = document.getElementById('mjg-map');
+    if (!el || this.map) return;
+    this.map = new maplibregl.Map({ container: el, style: this.styleUrl(), center: [115, -2], zoom: 3.6, attributionControl: false });
+    this.map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
+    const go = () => { try { this.addMarkers(); this.fitAll(); } catch (e) { console.log('marker err', e); } };
+    this.map.on('load', go);
+    setTimeout(() => { if (this.map) go(); }, 1800);
+  }
+
+  waitMap() {
+    if (window.maplibregl) this.initMap();
+    else this._mt = setTimeout(() => this.waitMap(), 120);
+  }
+
+  tick() {
+    const d = new Date();
+    const hh = String(d.getHours()).padStart(2, '0');
+    const mm = String(d.getMinutes()).padStart(2, '0');
+    this.setState({ clock: hh + ':' + mm });
+  }
+
+  applyTheme() {
+    const root = document.getElementById('mjg-root');
+    if (!root) return;
+    root.style.setProperty('--accent', this.accent());
+    if (this.props.showGrid === false) root.style.backgroundImage = 'none';
+    else root.style.backgroundImage = 'linear-gradient(var(--paper) 1px,transparent 1px),linear-gradient(90deg,var(--paper) 1px,transparent 1px)';
+  }
+
+  componentDidMount() {
+    this.tick();
+    this._ct = setInterval(() => this.tick(), 30000);
+    this.applyTheme();
+    this.waitMap();
+  }
+
+  componentDidUpdate(prev) {
+    if (prev.accent !== this.props.accent || prev.showGrid !== this.props.showGrid) {
+      this.applyTheme();
+      if (this._markers) this._markers.forEach(({ el }) => { const d = el.firstChild; if (d) d.style.background = this.accent(); });
+    }
+    if (prev.mapStyle !== this.props.mapStyle && this.map) this.map.setStyle(this.styleUrl());
+  }
+
+  componentWillUnmount() {
+    clearInterval(this._ct);
+    clearTimeout(this._mt);
+    if (this.map) this.map.remove();
+  }
+
+  renderVals() {
+    const accent = this.accent();
+    const projects = this.data().map((p, i) => ({
+      num: i + 1,
+      name: p.name,
+      org: p.org,
+      period: p.period,
+      blurb: p.blurb,
+      coordLabel: Math.abs(p.coord[1]).toFixed(2) + '°' + (p.coord[1] < 0 ? 'S' : 'N') + ', ' + Math.abs(p.coord[0]).toFixed(2) + '°' + (p.coord[0] < 0 ? 'W' : 'E') + ' · ' + p.place,
+      edge: i === this.state.active ? accent : 'transparent',
+      bg: i === this.state.active ? '#fff' : 'transparent',
+      onSelect: () => this.selectProject(i)
+    }));
+
+    const expertise = [
+      { code: 'gis.analysis', title: 'GIS Analysis', desc: 'Spatial modeling, overlay analysis and enterprise geodatabases — from permit compliance to flood-vulnerability mapping.', tags: ['ArcGIS Enterprise', 'PostGIS', 'GeoServer', 'spatial queries'] },
+      { code: 'remote.sensing', title: 'Remote Sensing', desc: 'Active & passive sensing — LiDAR, radar and aerial/satellite imagery for coastal, agricultural and environmental monitoring.', tags: ['LiDAR', 'Radar/SAR', 'SNAP', 'ENVI'] },
+      { code: 'cartography', title: 'Cartography', desc: 'Thematic map design and land surveying — theodolite, total station and waterpass translated into clear visual data.', tags: ['thematic maps', 'total station', 'surveying'] },
+      { code: 'geo.ai', title: 'Geo-AI', desc: 'Integrating machine learning with GIS for agricultural yield prediction, land conservation and ESG decision support.', tags: ['ML + GIS', 'Python', 'yield prediction'] }
+    ];
+
+    const education = [
+      { period: 'Jul 2022 – Jun 2026', school: 'Universitas Gadjah Mada', degree: 'S1 Kartografi & Penginderaan Jauh (Cartography & Remote Sensing)' },
+      { period: 'Jun 2019 – May 2022', school: 'SMK Negeri 1 Lolofitu Moi', degree: 'Teknik Komputer & Jaringan (Computer & Network Engineering)' }
+    ];
+
+    const awards = [
+      '2nd Place — Business Challenge Track, Astranauts 2024',
+      '3rd Place — Scientific Writing Competition, LOGIN 2024',
+      '1st Runner-Up — Sotech Competition (Technology)',
+      'National Poetry Finalist & author of "No Longer Looking for Cemara"',
+      'Finalist — National Essay Competition, IDEA FEST'
+    ];
+
+    const pubs = [
+      'Air-Concentration Change from Deforestation of the IKN Area (national proceedings)',
+      'Flood Vulnerability Analysis of the Bengawan Solo Watershed, Sukoharjo',
+      'IoT-Based Urban Portable Agriculture System: Technical Validation',
+      'Fintech Innovation for MSME Sustainability'
+    ];
+
+    const hardSkills = [
+      { name: 'ArcGIS / ArcGIS Enterprise', lvl: 'expert', pct: '92%' },
+      { name: 'Remote Sensing (LiDAR & Radar)', lvl: 'advanced', pct: '86%' },
+      { name: 'Cartography & Land Surveying', lvl: 'advanced', pct: '84%' },
+      { name: 'PostgreSQL / PostGIS · GeoServer', lvl: 'advanced', pct: '80%' },
+      { name: 'Python (GeoPandas, rasterio)', lvl: 'proficient', pct: '74%' },
+      { name: 'Geo-AI / Machine Learning', lvl: 'proficient', pct: '70%' }
+    ];
+
+    const softSkills = ['Analytical thinking', 'Leadership', 'Project management', 'Public speaking', 'Cross-team collaboration', 'Hazard mitigation'];
+
+    const tools = ['ArcGIS Pro', 'ArcGIS Enterprise', 'QGIS', 'GeoServer', 'GeoNode', 'PostgreSQL', 'PostGIS', 'SNAP', 'ENVI', 'FUSION', 'Google Earth Engine', 'Python', 'Total Station', 'AI-assisted dev'];
+
+    const languages = [
+      { name: 'Bahasa Nias', level: 'Native' },
+      { name: 'Bahasa Indonesia', level: 'Native' },
+      { name: 'English', level: 'Working' }
+    ];
+
+    return { clock: this.state.clock, projects, projectCount: projects.length, expertise, education, awards, pubs, hardSkills, softSkills, tools, languages };
+  }
+}
+</script>
+</body>
+</html>
