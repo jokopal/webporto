@@ -236,10 +236,14 @@
           '<div class="profile-info">' +
             '<div class="greet">' + esc(p.greeting) + '</div>' +
             '<h1>' + esc(p.firstName) + ' <span class="accent">' + esc(p.lastName) + '</span></h1>' +
-            '<div class="role-chip">' + esc(p.roleChip) + '</div>' +
+            '<div class="chip-row">' +
+              '<span class="role-chip">' + esc(p.roleChip) + '</span>' +
+              (p.availability ? '<span class="avail-chip"><span class="avail-dot"></span>' + esc(p.availability) + '</span>' : '') +
+            '</div>' +
             '<p class="summary">' + esc(p.summary) + '</p>' +
             '<div class="contact-row">' +
               '<a class="pill link" href="mailto:' + esc(p.email) + '"><span class="sq"></span>email</a>' +
+              (p.whatsapp ? '<a class="pill link" href="' + esc(p.whatsapp) + '" target="_blank" rel="noopener"><span class="sq"></span>whatsapp</a>' : '') +
               '<a class="pill link" href="' + esc(p.linkedin) + '" target="_blank" rel="noopener"><span class="sq"></span>linkedin</a>' +
               '<span class="pill static"><span class="sq"></span>' + esc(p.location) + '</span>' +
             '</div>' +
@@ -308,6 +312,7 @@
           (p.period ? '<div class="prod-period">' + esc(p.period) + '</div>' : '') +
           '<p>' + esc(p.desc || '') + '</p>' +
           '<div class="tags">' + tech + '</div>' +
+          (p.impact ? '<div class="prod-impact">' + esc(p.impact) + '</div>' : '') +
           link +
         '</div></div>';
     }).join('');

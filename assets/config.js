@@ -44,7 +44,7 @@ window.MJG_CONFIG = {
 };
 
 /* ============================================================
-   DEFAULT_DATA - content model (from LinkedIn export + updates)
+   DEFAULT_DATA - content model (from full LinkedIn export)
    ============================================================ */
 window.DEFAULT_DATA = {
   profile: {
@@ -52,37 +52,44 @@ window.DEFAULT_DATA = {
     lastName: 'Gulo',
     greeting: "hi, i'm",
     roleChip: 'GIS · REMOTE SENSING · GEO-AI',
+    availability: 'Open to work · Fresh graduate 2026',
     headline: 'Independent GIS Developer (Jokopal) | Remote Sensing & GIS at Seacrest Indonesia and WCS | Blue Carbon Research, UGM',
-    summary: 'Geographic Information Science undergraduate at the Faculty of Geography, Universitas Gadjah Mada, specialising in GIS, cartography and remote sensing (Sentinel-2, LiDAR, radar) for blue-carbon, seagrass and coastal water-quality mapping. I also build independent GIS products as Jokopal: the web app Shp.Aid and the open-source BlueMap, integrating machine learning with GIS for Geo-AI solutions.',
+    summary: 'Final-year Geographic Information Science undergraduate (GPA 3.58/4.00, KIP scholar) at the Faculty of Geography, Universitas Gadjah Mada, specialising in GIS, cartography and remote sensing (Sentinel-2, LiDAR, radar) for blue-carbon, seagrass and coastal water-quality mapping. I build independent GIS products as Jokopal, including the open-source desktop app BlueMap: Coastal AutoMapper, and integrate machine learning with GIS for Geo-AI solutions. Open to full-time roles and collaboration.',
     location: 'Yogyakarta, Indonesia',
     coordLabel: '7.77°S 110.38°E',
     email: 'menlimanjoyfalgulo@gmail.com',
+    phone: '+62 823-9703-8718',
+    whatsapp: 'https://wa.me/6282397038718',
     linkedin: 'https://www.linkedin.com/in/menlimanjoyfalgulo',
     linkedinHandle: '/in/menlimanjoyfalgulo',
     photo: 'uploads/photo-1782995995213.png'
   },
 
   stats: [
-    { num: '4',   lbl: 'independent products' },
-    { num: '50+', lbl: 'students mentored' },
-    { num: '7',   lbl: 'publications & releases' },
-    { num: '5',   lbl: 'national awards' }
+    { num: '3.58', lbl: 'GPA / 4.00' },
+    { num: '7',    lbl: 'national awards' },
+    { num: '7',    lbl: 'publications & releases' },
+    { num: '54',   lbl: 'students mentored' }
   ],
 
   /* Independent GIS products (separate from experience). */
   products: [
+    { name: 'BlueMap: Coastal AutoMapper', tagline: 'Open-source coastal habitat mapping', period: 'v2.0 · 2026', status: 'MIT · Zenodo DOI',
+      link: 'https://zenodo.org/records/20457262', impact: '3,016 impressions on launch',
+      tech: ['Python (FastAPI, rasterio, scikit-learn)', 'React + Vite', 'Electron', 'SQLite', 'Random Forest · SVM'],
+      desc: 'Offline desktop app for shallow-water benthic habitat mapping from satellite imagery. Bundles validated methods (sunglint correction, Lyzenga depth-invariant index, ML classification/regression, accuracy assessment) with multi-temporal change detection. Supports Sentinel-2, Landsat 8/9, PlanetScope and WorldView. Open-source (MIT) with a citable Zenodo DOI.' },
     { name: 'Shp.Aid', tagline: 'Web GIS toolkit for spatial data', period: '2025 - Present', status: 'Live',
-      link: 'https://shpaid.com', tech: ['Web GIS', 'JavaScript', 'AI-assisted'],
+      link: 'https://shpaid.com', impact: '',
+      tech: ['Web GIS', 'JavaScript', 'AI-assisted'],
       desc: 'Independent, AI-assisted web application for working with shapefiles and geospatial data end to end. Built, shipped and maintained solo as Jokopal.' },
-    { name: 'BlueMap', tagline: 'Blue-carbon & coastal mapping', period: '2026', status: 'Open release (Zenodo)',
-      link: 'https://zenodo.org/records/20457262', tech: ['Remote Sensing', 'Geospatial', 'AI-assisted'],
-      desc: 'Remote-sensing and geospatial application for blue-carbon and coastal habitat mapping, released openly on Zenodo with a citable DOI.' },
-    { name: 'L.E.A.D Logbook Automation', tagline: 'Digital logbook & report automation', period: 'Sep 2025 - Nov 2025', status: 'Delivered (team of 3)',
-      link: '', tech: ['React.js', 'TailwindCSS', 'UI/UX'],
-      desc: 'Frontend for PT Berau Coal\'s Learning, Evaluation & Activity Development app. Engineered the modern, responsive interface for logbook and report-automation features, integrated with backend services.' },
-    { name: 'WEB GIS - Spatial Licence Dashboard', tagline: 'Mining-licence spatial dashboard', period: 'Sep 2025 - Nov 2025', status: 'Delivered',
-      link: '', tech: ['OpenLayers', 'AlpineJS', 'Supabase/PostGIS', 'RBAC'],
-      desc: 'Full-stack web GIS for PT Berau Coal visualising mining-licensing data with interactive maps and real-time analytics. Secure Supabase (PostgreSQL/PostGIS) backend with Role-Based Access Control.' }
+    { name: 'WEB GIS - Spatial Licence Dashboard', tagline: 'Mining-licence spatial dashboard', period: 'Sep 2025 - Nov 2025 · Berau Coal', status: 'Delivered',
+      link: '', impact: '4,029 impressions · most-viewed post',
+      tech: ['OpenLayers', 'AlpineJS', 'Supabase/PostGIS', 'RBAC'],
+      desc: 'Full-stack web GIS visualising mining-licensing data with interactive maps and real-time compliance analytics. Secure Supabase (PostgreSQL/PostGIS) backend with Role-Based Access Control, plus Apps Script, WhatsApp and email notifications.' },
+    { name: 'L.E.A.D Logbook Automation', tagline: 'Digital logbook & report automation', period: 'Sep 2025 - Nov 2025 · Berau Coal', status: 'Delivered (team of 3)',
+      link: '', impact: '',
+      tech: ['React.js', 'TailwindCSS', 'UI/UX'],
+      desc: 'Frontend for the Learning, Evaluation & Activity Development app: a responsive interface for digital logbook and report-automation features, integrated with backend services.' }
   ],
 
   /* projects on the map - lng/lat are true WGS84 (EPSG:4326). Field footprint. */
@@ -96,11 +103,11 @@ window.DEFAULT_DATA = {
     { name: 'TSS Monitoring (ZOM 497)', org: 'Wildlife Conservation Society', period: '2026', place: 'South Bolaang Mongondow', lng: 123.98, lat: 0.36,
       blurb: 'Multi-temporal TSS mapping with 17 Sentinel-2 scenes and 7 algorithms; compliance with PP 22/2021 confirmed.' },
     { name: 'EQUITY WCU Benthic & Seagrass Survey', org: 'Blue Carbon Research Group, UGM', period: '2025', place: 'Sanur & Tanjung Benoa, Bali', lng: 115.24, lat: -8.72,
-      blurb: 'Field data collection of benthic and seagrass habitats along Bali coasts for the EQUITY World Class University program.' },
+      blurb: 'Snorkelling photo-transect survey of benthic and seagrass habitats along Bali coasts (OM System underwater camera) for the EQUITY World Class University program.' },
     { name: 'National Seagrass Map, Field Survey', org: 'Blue Carbon Research Group, UGM', period: '2024-25', place: 'Madura, East Java', lng: 113.47, lat: -7.02,
-      blurb: 'Benthic and seagrass field survey along the north coast of East Java for the Indonesia Seagrass Map.' },
+      blurb: '16 benthic spot-check sites along the north coast of East Java for the Indonesia Seagrass Map: Framework and Implementation.' },
     { name: 'National Seagrass Map, Field Survey', org: 'Blue Carbon Research Group, UGM', period: '2024-25', place: 'Pulau Banyak, Aceh', lng: 97.32, lat: 2.07,
-      blurb: 'Benthic and seagrass field survey in the Banyak Islands for the Indonesia Seagrass Map: Framework and Implementation.' },
+      blurb: '91 transect samples of benthic and seagrass habitats in the Banyak Islands for the National Seagrass Map.' },
     { name: 'Seagrass Dynamics Study', org: 'Regional Studies in Marine Science', period: '2024', place: 'Kuta Mandalika, Lombok', lng: 116.28, lat: -8.89,
       blurb: 'Case study mapping seagrass dynamics in a developing coastal area (journal publication).' },
     { name: 'Rapid Flood Mapping (Disaster Charter)', org: 'UGM · Volunteer', period: '2025', place: 'Aceh & Sumatra', lng: 97.50, lat: 3.50,
@@ -116,7 +123,7 @@ window.DEFAULT_DATA = {
     { name: 'Tsunami Early-Warning System Survey', org: 'CV. Spiro Energy · BPBD', period: '2025', place: 'South Coast, Central Java', lng: 109.015, lat: -7.726,
       blurb: 'EWS field surveyor: siren/transmitter tower inspection and Motorola CPS radio-frequency programming.' },
     { name: 'Blue Carbon Research & Geospatial Labs', org: 'Faculty of Geography, UGM', period: '2024-now', place: 'Yogyakarta', lng: 110.3771, lat: -7.7669,
-      blurb: 'Blue-carbon research and lab instruction: remote sensing, land surveying, cartography and spatial databases.' },
+      blurb: 'Blue-carbon research and lab instruction: remote sensing, land surveying, cartography and spatial databases (54 students across four practicums).' },
     { name: 'Roots, TKJ & First Maps', org: 'SMKN 1 Lolofitu Moi', period: '2019-22', place: 'Nias Barat', lng: 97.750, lat: 1.150,
       blurb: 'Computer & network engineering foundation on Nias island, where the geospatial journey began.' }
   ],
@@ -125,36 +132,34 @@ window.DEFAULT_DATA = {
   experience: [
     { role: 'Co-Trainer & Technical Facilitator, Intermediate GEE Training', org: 'GGGI Indonesia', period: 'Dec 2025', loc: 'Jakarta', type: 'work', link: '',
       desc: 'Facilitated intermediate Google Earth Engine training on live-coding workflows for Sentinel-2 processing, Random Forest classification and accuracy assessment, supporting standardised national benthic-habitat mapping and blue-carbon monitoring.' },
-    { role: 'Assistant Specialist, Remote Sensing & GIS (COAST TA)', org: 'Seacrest Indonesia', period: 'Jul 2026 - Present', loc: 'Central Java (coastal)', type: 'work', link: '',
-      desc: 'Remote-sensing assistant on a 10-week feasibility study for blue-carbon ecosystem rehabilitation. Delivered a full satellite dataset, land-classification and stratification maps/tables, RS methodology documentation, a multi-layer overlay and village-level recap: six deliverables on schedule under a results-based contract.' },
-    { role: 'Remote Sensing Analyst, Coastal Water-Quality (MPAs & Aquaculture)', org: 'Wildlife Conservation Society', period: 'Jul 2026 - Present', loc: 'West Nusa Tenggara', type: 'research', link: '',
-      desc: 'Monitored water quality across 347 aquaculture zones and 16 Marine Protected Areas using bi-seasonal Sentinel-2 (2023 to 2026) to estimate TSS, Chlorophyll-a and Salinity. Benchmarked algorithms per parameter, analysed seasonal and spatial trends, and delivered technical reports for marine spatial planning and conservation zoning.' },
-    { role: 'Remote Sensing Analyst, TSS Monitoring (ZOM 497)', org: 'Wildlife Conservation Society', period: 'Jun 2026 - Jul 2026', loc: 'South Bolaang Mongondow', type: 'research', link: '',
+    { role: 'Assistant Specialist, Remote Sensing & GIS (COAST TA)', org: 'Seacrest Indonesia', period: 'Jul 2026 - Present · Contract', loc: 'Sleman, Yogyakarta (Remote)', type: 'work', link: '',
+      desc: 'Remote-sensing assistant on a 10-week feasibility study for blue-carbon ecosystem rehabilitation. Delivered a full satellite dataset, land-classification and stratification maps/tables, RS methodology documentation, a multi-layer overlay and village-level recap: six analytical deliverables on schedule under a results-based contract.' },
+    { role: 'Remote Sensing Analyst, Coastal Water-Quality (MPAs & Aquaculture)', org: 'Wildlife Conservation Society', period: 'Jul 2026 - Present · Freelance', loc: 'West Nusa Tenggara', type: 'research', link: '',
+      desc: 'Monitored water quality across 347 aquaculture zones and 16 Marine Protected Areas using bi-seasonal Sentinel-2 (2023 to 2026) to estimate TSS, Chlorophyll-a and Salinity. Benchmarked algorithms per parameter, validated against in-situ sampling, and delivered technical reports for marine spatial planning and conservation zoning.' },
+    { role: 'Remote Sensing Analyst, TSS Monitoring (ZOM 497)', org: 'Wildlife Conservation Society', period: 'Jun 2026 - Jul 2026 · Freelance', loc: 'South Bolaang Mongondow', type: 'research', link: '',
       desc: 'Led multi-temporal TSS monitoring with 17 Sentinel-2 scenes (2018 to 2026), comparing 7 retrieval algorithms validated against in-situ sampling. Identified Jaelani et al. (2016) as best-performing and confirmed compliance with PP 22/2021, delivering a technical report on coastal water-quality status.' },
     { role: 'Volunteer Geospatial Analyst, Disaster Charter Rapid Flood Mapping', org: 'Universitas Gadjah Mada', period: 'Dec 2025', loc: 'Aceh, West & North Sumatra', type: 'volunteer', link: '',
       desc: 'Rapid flood mapping in Sumatra: pre and post-disaster satellite image interpretation, digitisation of flood and landslide extents (polygon) and affected buildings/infrastructure (point), attributed to BRIN geospatial standards for disaster-impact assessment and emergency response.' },
-    { role: 'Field Surveyor, EQUITY WCU Benthic & Seagrass Survey', org: 'Blue Carbon Research Group, UGM', period: '2025', loc: 'Sanur & Tanjung Benoa, Bali', type: 'research', link: '',
-      desc: 'Field data collection of benthic and seagrass habitats along Bali coasts for the EQUITY WCU program (Enhancing Quality Education for International University Impacts and Recognition, World Class University).' },
-    { role: 'Field Surveyor, National Seagrass Map', org: 'Blue Carbon Research Group, UGM', period: '2024 - 2025', loc: 'Madura (East Java) & Pulau Banyak (Aceh)', type: 'research', link: '',
-      desc: 'Field surveys of benthic and seagrass habitats along the north coast of East Java (Madura) and the Banyak Islands (Aceh) for the National Seagrass Map, part of the Indonesia Seagrass Map: Framework and Implementation.' },
-    { role: 'Spatial Compliance Analyst, Dept. License', org: 'PT Berau Coal', period: 'Sep 2025 - Dec 2025', loc: 'Berau, Kalimantan Timur', type: 'work', link: '',
-      desc: 'GIS and remote monitoring for mining-permit compliance; built spatial dashboards for permit boundaries, violation detection and inventory data, linking GIS with regulatory compliance and risk mitigation.' },
-    { role: 'Student Trainee (Talent Development)', org: 'Sinarmas Agribusiness & Food · TDC UGM', period: 'Aug 2025 - Dec 2025', loc: 'Yogyakarta', type: 'work', link: '',
-      desc: 'Talent-development program in digital innovation, human-capital strategy and sustainable agribusiness; delivered an AI-driven capstone on ESG challenges with actionable recommendations.' },
-    { role: 'Surveyor, Tsunami Early-Warning System', org: 'CV. Spiro Energy', period: 'Aug 2025', loc: 'Central Java', type: 'work', link: '',
+    { role: 'Field Surveyor, National Seagrass Map (Nasional)', org: 'UGM · KKP · BRIN · BIG · Univ. of Queensland', period: '2024 - 2025', loc: 'Madura, Pulau Banyak, Sanur & 7 regions', type: 'research', link: '',
+      desc: 'National benthic and seagrass mapping (Indonesia Seagrass Map: Framework and Implementation, supported by the David & Lucile Packard Foundation): 16 benthic spot-check sites in Madura, 91 transect samples in Pulau Banyak, snorkelling photo-transects at Sanur (Bali) with an OM System underwater camera, plus field surveys and geospatial processing across 7 Indonesian regions.' },
+    { role: 'Spatial Compliance Analyst, Dept. License', org: 'PT Berau Coal', period: 'Sep 2025 - Dec 2025 · Internship', loc: 'Berau, Kalimantan Timur', type: 'work', link: '',
+      desc: 'GIS and remote monitoring for mining-permit compliance; built spatial dashboards for permit boundaries, violation detection and inventory data. Also shipped two internal apps (see Products): a WEB GIS spatial-licence dashboard and the L.E.A.D logbook automation frontend.' },
+    { role: 'Geospatial Programming & Analyst (Talent Development)', org: 'Sinarmas Agribusiness & Food · TDC UGM', period: 'Aug 2025 - Dec 2025 · Student Trainee', loc: 'Yogyakarta (Hybrid)', type: 'work', link: '',
+      desc: 'Talent-development program in digital innovation, human-capital strategy and sustainable agribusiness. Delivered an AI-driven ESG capstone ("Palm Oil, but Make It Cool", Group 3, presented 25 Nov 2025) proposing digital-content, smart-village and gamification strategies for Gen-Z recruitment.' },
+    { role: 'Surveyor, Tsunami Early-Warning System', org: 'CV. Spiro Energy', period: 'Aug 2025 · Freelance', loc: 'Central Java', type: 'work', link: '',
       desc: 'EWS surveyor and intern technician: inspected and tested siren/transmitter towers with the BPBD team and applied radio-frequency programming via Motorola CPS for reliable early-warning communication.' },
-    { role: 'Research Assistant, Blue Carbon Research Group', org: 'Faculty of Geography, UGM', period: 'Aug 2024 - Present', loc: 'Yogyakarta', type: 'research', link: '',
-      desc: 'Blue-carbon research assistant and lab assistant across four practicums: Active-System Remote Sensing (LiDAR & radar; 17 students), Land Surveying & Cartography (16 students), and Spatial Database & SDI (ArcGIS Enterprise, GeoServer, PostgreSQL, GeoNode; 21 students).' },
-    { role: 'Project Member, Indonesia Seagrass Map: Framework & Implementation', org: 'Blue Carbon Research Group, UGM', period: 'Mar 2024 - Oct 2025', loc: 'Indonesia', type: 'research', link: '',
-      desc: 'National benthic and seagrass habitat mapping in collaboration with UGM, KKP, BRIN, BIG and The University of Queensland (supported by the David & Lucile Packard Foundation): field surveys, spatial data processing and analysis for seagrass conservation.' },
+    { role: 'Research Assistant, Blue Carbon Research Group', org: 'Faculty of Geography, UGM', period: 'Aug 2024 - Present · Part-time', loc: 'Yogyakarta (Hybrid)', type: 'research', link: '',
+      desc: 'Remote-sensing and spatial analysis for blue-carbon stock assessment in coastal ecosystems, plus benthic, seagrass and mangrove field surveys. Lab assistant across four practicums: Active-System Remote Sensing (LiDAR & radar; 17 students), Land Surveying & Cartography (16 students), and Spatial Database & SDI (ArcGIS Enterprise, GeoServer, PostgreSQL, GeoNode; 21 students).' },
     { role: 'Undergraduate Researcher, Blue Carbon & Seagrass Mapping (ML + Multispectral RS)', org: 'UGM (Fundamental Research Grant 2024)', period: 'Dec 2024', loc: 'Yogyakarta', type: 'research', link: '',
-      desc: 'Applied multispectral remote sensing and machine learning to rapid mapping of seagrass carbon stocks and sequestration: feature engineering (deglint bands, DII, PCA, KPCA), regression-model comparison and spatial upscaling for standardised blue-carbon monitoring.' },
+      desc: 'Applied multispectral remote sensing and machine learning to rapid mapping of seagrass carbon stocks: feature engineering (deglint bands, DII, PCA, KPCA), regression-model comparison and spatial upscaling for standardised blue-carbon monitoring.' },
     { role: 'Geoscience Team, Urban Portable Agriculture (SOTECH Pertamina 2024)', org: 'Komunitas Geosains UGM', period: 'May 2024 - Jul 2024', loc: 'Plaju, Palembang', type: 'leadership', link: '',
       desc: 'Built the Urban Portable Agriculture (UPA) integrated vertical-farming system for land-limited urban areas in the Mina Padi program with PT Kilang Pertamina RU III Plaju and AntaraDjaya Indonesia. Secured 1st runner-up (technology) at Sotech 2024.' },
     { role: 'Presenter, Geomatika VII National Seminar', org: 'Badan Informasi Geospasial (BIG)', period: 'May 2024', loc: 'Cibinong, West Java', type: 'research', link: '',
-      desc: 'Main author and presenter; paper "Changes in Air Concentration Against Deforestation of IKN" selected for the official national proceedings.' },
+      desc: 'Main author and presenter; paper "Air Concentration Changes Due to Deforestation of the IKN Area" selected for the official national proceedings.' },
     { role: 'President', org: 'Komunitas Geosains UGM', period: 'Jan 2024 - Dec 2024', loc: 'Yogyakarta', type: 'leadership', link: '',
       desc: 'Led geoscience education, research and student engagement; secured 6 competition wins and 1 national proceedings publication.' },
+    { role: 'Co-Facilitator (Cofas)', org: 'PPSMB UGM', period: 'Mar 2023 - Sep 2023 · Contract', loc: 'Yogyakarta', type: 'volunteer', link: '',
+      desc: 'Delivered orientation and creative material to 42 new students, with public-speaking and assessment duties, after a competitive selection and intensive training in the Herman Yohanes cluster.' },
     { role: 'Surveyor, PJU Data Collection Phase V', org: 'UPT PJU, Dinas PUPKP Kota Yogyakarta', period: 'Oct 2023 - Nov 2023', loc: 'Yogyakarta', type: 'work', link: '',
       desc: 'Surveyed street-lighting (PJU) kWh meters: measured and recorded meter data, verified installation condition, and supported data analysis for street-lighting infrastructure management.' },
     { role: 'Head of Internal Affairs', org: 'Indonesian Climate Change Initiative UGM', period: 'Aug 2023 - Jan 2024', loc: 'Yogyakarta', type: 'leadership', link: '',
@@ -162,22 +167,24 @@ window.DEFAULT_DATA = {
   ],
 
   expertise: [
-    { code: 'indie.products', title: 'Independent GIS Products', desc: 'Building and shipping GIS web apps and open tools end to end as an indie developer (AI-assisted): Shp.Aid, BlueMap and client dashboards.', tags: ['Shp.Aid', 'BlueMap', 'React · OpenLayers', 'Supabase/PostGIS'] },
-    { code: 'remote.sensing', title: 'Remote Sensing', desc: 'Sentinel-2, LiDAR and radar for blue-carbon, seagrass, water-quality and environmental monitoring, with ML-based retrieval.', tags: ['Sentinel-2', 'LiDAR · Radar', 'Random Forest', 'GEE'] },
+    { code: 'indie.products', title: 'Independent GIS Products', desc: 'Building and shipping GIS apps and open tools end to end as an indie developer (AI-assisted): the open-source BlueMap desktop app, Shp.Aid, and client dashboards.', tags: ['BlueMap', 'Shp.Aid', 'React · OpenLayers', 'Supabase/PostGIS'] },
+    { code: 'remote.sensing', title: 'Remote Sensing', desc: 'Sentinel-2, LiDAR, radar and UAV for blue-carbon, seagrass, water-quality and environmental monitoring, with ML-based retrieval.', tags: ['Sentinel-2', 'LiDAR · Radar', 'UAV/Drone', 'Random Forest · SVM'] },
     { code: 'gis.analysis', title: 'GIS Analysis', desc: 'Spatial modelling, overlay analysis and enterprise geodatabases: from permit compliance to flood vulnerability and marine spatial planning.', tags: ['ArcGIS Enterprise', 'PostGIS', 'GeoServer', 'spatial queries'] },
-    { code: 'cartography', title: 'Cartography & Surveying', desc: 'Thematic map design and land surveying: theodolite, robotic total station and waterpass turned into clear visual data.', tags: ['thematic maps', 'total station', 'field survey'] },
-    { code: 'geo.ai', title: 'Geo-AI', desc: 'Integrating machine learning with GIS for seagrass and blue-carbon mapping, yield prediction and ESG decision support.', tags: ['ML + GIS', 'Python', 'feature engineering'] }
+    { code: 'cartography', title: 'Cartography & Surveying', desc: 'Thematic map design and land surveying: theodolite, robotic total station, waterpass and GNSS turned into clear visual data.', tags: ['thematic maps', 'total station', 'GNSS', 'field survey'] },
+    { code: 'geo.ai', title: 'Geo-AI', desc: 'Integrating machine learning with GIS for seagrass and blue-carbon mapping, water-quality retrieval and ESG decision support.', tags: ['ML + GIS', 'Python', 'feature engineering'] }
   ],
 
   education: [
-    { period: 'Jul 2022 - Jun 2026', school: 'Universitas Gadjah Mada', degree: "Bachelor's, Cartography & Remote Sensing (Kartografi & Penginderaan Jauh)" },
-    { period: 'Jun 2019 - May 2022', school: 'SMK Negeri 1 Lolofitu Moi', degree: 'Computer & Network Engineering (Teknik Komputer & Jaringan)' }
+    { period: 'Jul 2022 - May 2026 (expected)', school: 'Universitas Gadjah Mada', degree: 'Bachelor of Science, Cartography & Remote Sensing. GPA 3.58/4.00, KIP scholar. Focus: Geo-AI, Active Remote Sensing, Spatial Analysis & Modelling, Spatial Programming, Analytical & Thematic Cartography.' },
+    { period: 'Jun 2019 - Apr 2022', school: 'SMK Negeri 1 Lolofitu Moi', degree: 'Computer & Network Engineering (Teknik Komputer & Jaringan). Final grade 92.00/100; computer maintenance & wireless networking.' }
   ],
 
   awards: [
+    'PKM-GFT Funding (Futuristic Ideas), Kemendikbudristek 2025 (national)',
+    'Gold Medal & 2nd Place, Diponegoro Science Competition 2024 (national)',
+    '1st Runner-Up, Sotech Competition (Technology, Pertamina) 2024',
     '2nd Place, Business Challenge Track, Astranauts 2024',
     '3rd Place, Scientific Writing Competition, LOGIN 2024',
-    '1st Runner-Up, Sotech Competition (Technology)',
     'National Poetry Finalist & author of "No Longer Looking for Cemara"',
     'Finalist, National Essay Competition, IDEA FEST'
   ],
@@ -185,34 +192,37 @@ window.DEFAULT_DATA = {
   pubs: [
     'Mapping Seagrass Dynamics in a Developing Coastal Area: A Case Study of Kuta Mandalika, Lombok Island, Indonesia (Regional Studies in Marine Science)',
     'Comparison of PCA, KPCA, and Regression Models for Seagrass Percent Cover Mapping Using Sentinel-2 (SPIE Proceedings, Asia-Pacific Remote Sensing Conference 2024, Kaohsiung, Taiwan)',
-    'Air-Concentration Change from Deforestation of the IKN Area (national proceedings)',
-    'Flood Vulnerability Analysis of the Bengawan Solo Watershed, Sukoharjo (overlay method)',
-    'IoT-Based Urban Portable Agriculture System: Technical Validation of a Low-Cost Hydroponic Monitoring Platform',
-    'Fintech Innovation: Enhancing the Sustainability of Micro, Small & Medium Enterprises',
-    'BlueMap: blue-carbon & coastal mapping application (open release, Zenodo: zenodo.org/records/20457262)'
+    'Air Concentration Changes Due to Deforestation of the IKN Area (Proceedings of the VII Geomatics National Seminar, BIG 2024)',
+    'IoT-Based Urban Portable Agriculture System: Technical Validation of a Low-Cost Hydroponic Monitoring Platform (lead author, 2024)',
+    'Flood Vulnerability Analysis of the Bengawan Solo Watershed, Sukoharjo, Central Java (overlay method, 2024)',
+    'Fintech Innovation: Enhancing the Sustainability of Micro, Small & Medium Enterprises (2025)',
+    'BlueMap: Coastal AutoMapper, open-source software release (MIT, Zenodo DOI)'
   ],
 
   certifications: [
+    'Thematic Google Earth Engine Training: Deforestation & Air Pollution (Geoacces, 2024)',
+    'Basic Geotechnical Engineering Investigation Using Resistivity (Geotama Multi Resources, 2023)',
+    'Tsunami Inundation Modeling & Evacuation Route Design (Langen Teknik Satria, 2023)',
     'Kelompok Materi Pelatihan Dasar (KMPD)',
     'KMPL Pekerja Kantor dan Dapur'
   ],
 
   hardSkills: [
-    { name: 'ArcGIS / ArcGIS Enterprise', lvl: 'expert', pct: 92 },
-    { name: 'Remote Sensing (Sentinel-2, LiDAR, Radar)', lvl: 'advanced', pct: 88 },
-    { name: 'Cartography & Land Surveying', lvl: 'advanced', pct: 84 },
-    { name: 'Web GIS Dev (React, OpenLayers, Supabase)', lvl: 'advanced', pct: 80 },
-    { name: 'PostgreSQL / PostGIS · GeoServer', lvl: 'advanced', pct: 80 },
-    { name: 'ML for Remote Sensing (Random Forest, PCA)', lvl: 'proficient', pct: 76 }
+    { name: 'ArcGIS / ArcGIS Enterprise · QGIS', lvl: 'expert', pct: 92 },
+    { name: 'Remote Sensing (Sentinel-2, LiDAR, Radar, UAV)', lvl: 'advanced', pct: 88 },
+    { name: 'Cartography & Land Surveying (Total Station, GNSS)', lvl: 'advanced', pct: 84 },
+    { name: 'Web GIS Dev (React, OpenLayers, Supabase)', lvl: 'advanced', pct: 82 },
+    { name: 'PostgreSQL / PostGIS · GeoServer · GeoNode', lvl: 'advanced', pct: 80 },
+    { name: 'ML for Remote Sensing (Random Forest, SVM, PCA)', lvl: 'proficient', pct: 78 }
   ],
 
-  softSkills: ['Analytical thinking', 'Leadership', 'Project management', 'Public speaking', 'Cross-team collaboration', 'Hazard mitigation'],
+  softSkills: ['Analytical thinking', 'Leadership', 'Project management', 'Public speaking', 'Scientific writing', 'Cross-team collaboration'],
 
-  tools: ['ArcGIS Pro', 'ArcGIS Enterprise', 'QGIS', 'GeoServer', 'PostGIS', 'Google Earth Engine', 'SNAP', 'ENVI', 'Sentinel-2', 'Random Forest', 'Python', 'React.js', 'TailwindCSS', 'OpenLayers', 'AlpineJS', 'Supabase', 'Robotic Total Station', 'AI-assisted dev'],
+  tools: ['ArcGIS Pro', 'ArcGIS Enterprise', 'QGIS', 'ENVI', 'SNAP', 'FUSION', 'Agisoft', 'Google Earth Engine', 'OpenLayers', 'Sentinel-2', 'PostgreSQL', 'PostGIS', 'GeoServer', 'GeoNode', 'Python', 'FastAPI', 'scikit-learn', 'React + Vite', 'Electron', 'TailwindCSS', 'Supabase', 'Robotic Total Station', 'GNSS/GPS', 'UAV/Drone'],
 
   languages: [
-    { name: 'Bahasa Nias', level: 'Native / Bilingual' },
     { name: 'Bahasa Indonesia', level: 'Native / Bilingual' },
+    { name: 'Bahasa Nias', level: 'Native / Bilingual' },
     { name: 'English', level: 'Limited Working' }
   ]
 };

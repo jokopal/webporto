@@ -15,9 +15,10 @@
   var SECTIONS = [
     { key: 'profile', label: 'Profile', kind: 'object', fields: [
       { k: 'firstName', t: 'text' }, { k: 'lastName', t: 'text' }, { k: 'greeting', t: 'text' },
-      { k: 'roleChip', t: 'text' }, { k: 'headline', t: 'text' }, { k: 'summary', t: 'area' },
+      { k: 'roleChip', t: 'text' }, { k: 'availability', t: 'text' }, { k: 'headline', t: 'text' }, { k: 'summary', t: 'area' },
       { k: 'location', t: 'text' }, { k: 'coordLabel', t: 'text' },
-      { k: 'email', t: 'text' }, { k: 'linkedin', t: 'text' }, { k: 'linkedinHandle', t: 'text' },
+      { k: 'email', t: 'text' }, { k: 'phone', t: 'text' }, { k: 'whatsapp', t: 'text' },
+      { k: 'linkedin', t: 'text' }, { k: 'linkedinHandle', t: 'text' },
       { k: 'photo', t: 'text' }
     ]},
     { key: 'stats', label: 'Stats', kind: 'objectList', fields: [{ k: 'num', t: 'text' }, { k: 'lbl', t: 'text' }] },
@@ -26,7 +27,7 @@
       { k: 'lng', t: 'num' }, { k: 'lat', t: 'num' }, { k: 'blurb', t: 'area' }
     ]},
     { key: 'products', label: 'Products', kind: 'objectList', fields: [
-      { k: 'name', t: 'text' }, { k: 'tagline', t: 'text' }, { k: 'status', t: 'text' },
+      { k: 'name', t: 'text' }, { k: 'tagline', t: 'text' }, { k: 'status', t: 'text' }, { k: 'impact', t: 'text' },
       { k: 'period', t: 'text' }, { k: 'link', t: 'text' }, { k: 'tech', t: 'lines' }, { k: 'desc', t: 'area' }
     ]},
     { key: 'experience', label: 'Experience', kind: 'objectList', fields: [

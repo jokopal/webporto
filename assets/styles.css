@@ -249,6 +249,15 @@ footer.site{max-width:1180px;margin:0 auto;padding:24px 28px 60px;}
 .prod-card p{margin:0 0 12px;font-size:13px;line-height:1.5;color:#4a463d;}
 .prod-link{display:inline-block;margin-top:12px;font-family:var(--mono);font-size:11px;color:var(--accent);text-decoration:none;border:1.5px solid var(--accent);border-radius:5px;padding:4px 10px;transition:.12s;}
 .prod-link:hover{background:var(--accent);color:#fff;}
+.prod-impact{font-family:var(--mono);font-size:11px;color:var(--olive);margin-top:11px;display:flex;align-items:center;gap:6px;}
+.prod-impact::before{content:'\25B2';font-size:9px;}
+
+/* ---------- availability chip (open to work) ---------- */
+@keyframes availpulse{0%{box-shadow:0 0 0 0 rgba(56,163,90,.5);}70%{box-shadow:0 0 0 7px rgba(56,163,90,0);}100%{box-shadow:0 0 0 0 rgba(56,163,90,0);}}
+.chip-row{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-top:12px;}
+.chip-row .role-chip{margin-top:0;}
+.avail-chip{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.03em;background:#e8f3ea;color:#2f6b3d;border:1.5px solid #2f6b3d;border-radius:4px;padding:5px 10px;}
+.avail-chip .avail-dot{width:8px;height:8px;border-radius:50%;background:#38a35a;animation:availpulse 1.8s infinite;}
 
 @media (max-width:720px){
   .taskbar nav{display:none;}
