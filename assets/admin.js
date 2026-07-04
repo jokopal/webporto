@@ -24,7 +24,10 @@
     { key: 'stats', label: 'Stats', kind: 'objectList', fields: [{ k: 'num', t: 'text' }, { k: 'lbl', t: 'text' }] },
     { key: 'projects', label: 'Projects (map)', kind: 'objectList', fields: [
       { k: 'name', t: 'text' }, { k: 'org', t: 'text' }, { k: 'period', t: 'text' }, { k: 'place', t: 'text' },
-      { k: 'lng', t: 'num' }, { k: 'lat', t: 'num' }, { k: 'blurb', t: 'area' }
+      { k: 'mode', t: 'text' }, { k: 'lng', t: 'num' }, { k: 'lat', t: 'num' }, { k: 'blurb', t: 'area' }
+    ]},
+    { key: 'documenter', label: 'Documenter', kind: 'objectList', fields: [
+      { k: 'src', t: 'text' }, { k: 'place', t: 'text' }, { k: 'caption', t: 'text' }
     ]},
     { key: 'products', label: 'Products', kind: 'objectList', fields: [
       { k: 'name', t: 'text' }, { k: 'tagline', t: 'text' }, { k: 'status', t: 'text' }, { k: 'impact', t: 'text' },
@@ -32,7 +35,7 @@
     ]},
     { key: 'experience', label: 'Experience', kind: 'objectList', fields: [
       { k: 'role', t: 'text' }, { k: 'org', t: 'text' }, { k: 'period', t: 'text' }, { k: 'loc', t: 'text' },
-      { k: 'type', t: 'text' }, { k: 'link', t: 'text' }, { k: 'desc', t: 'area' }
+      { k: 'mode', t: 'text' }, { k: 'type', t: 'text' }, { k: 'link', t: 'text' }, { k: 'desc', t: 'area' }
     ]},
     { key: 'expertise', label: 'Expertise', kind: 'objectList', fields: [
       { k: 'code', t: 'text' }, { k: 'title', t: 'text' }, { k: 'desc', t: 'area' }, { k: 'tags', t: 'lines' }

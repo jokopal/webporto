@@ -210,6 +210,7 @@
     renderStats(d);
     renderProjectsList(d);
     renderProducts(d);
+    renderDocumenter(d);
     renderExperience(d);
     renderExpertise(d);
     renderEducation(d);
@@ -287,7 +288,8 @@
     list.innerHTML = (d.projects || []).map(function (p, i) {
       return '<button class="proj-item" data-i="' + i + '">' +
         '<div class="top"><span class="num">' + (i + 1) + '</span>' +
-        '<span class="name">' + esc(p.name) + '</span></div>' +
+        '<span class="name">' + esc(p.name) + '</span>' +
+        '<span class="mode-tag ' + modeClass(modeOfProject(p)) + '">' + esc(modeOfProject(p)) + '</span></div>' +
         '<div class="org">' + esc(p.org) + ' · ' + esc(p.period) + '</div>' +
         '<div class="blurb">' + esc(p.blurb) + '</div>' +
         '<div class="coord">' + coordLabel(p.lng, p.lat) + ' · ' + esc(p.place) + '</div>' +
@@ -332,7 +334,8 @@
           '<div><div class="role">' + esc(e.role) + '</div>' +
           '<div class="org">' + esc(e.org) + '</div></div>' +
           '<div class="meta">' + esc(e.period) + '<br>' + esc(e.loc || '') +
-          '<br><span class="type">' + esc(e.type) + '</span></div>' +
+          '<br><span class="type">' + esc(e.type) + '</span> ' +
+          '<span class="mode-tag ' + modeClass(modeOfExp(e)) + '">' + esc(modeOfExp(e)) + '</span></div>' +
         '</div><div class="desc">' + esc(e.desc) +
           (e.link ? ' <a class="exp-link" href="' + esc(e.link) + '" target="_blank" rel="noopener">↗ ' + esc(linkHost(e.link)) + '</a>' : '') +
         '</div></div></div>';
@@ -422,6 +425,50 @@
 
   function unique(a) { return a.filter(function (v, i) { return a.indexOf(v) === i; }); }
   function linkHost(u) { try { return new URL(u).hostname.replace(/^www\./, ''); } catch (e) { return 'open'; } }
+
+  /* ---------- placement mode (remote / onsite / hybrid / field) ---------- */
+  function modeClass(m) { return 'mode-' + String(m || '').toLowerCase().replace(/[^a-z]/g, ''); }
+  // Look up the explicit mode from built-in data (survives even when the sheet strips the column).
+  function builtinMode(listKey, field, val) {
+    var arr = (window.DEFAULT_DATA && window.DEFAULT_DATA[listKey]) || [];
+    for (var i = 0; i < arr.length; i++) { if (arr[i][field] === val && arr[i].mode) return arr[i].mode; }
+    return null;
+  }
+  function modeOfProject(p) {
+    if (p.mode) return p.mode;
+    var b = builtinMode('projects', 'name', p.name); if (b) return b;
+    var t = ((p.place || '') + ' ' + (p.org || '') + ' ' + (p.blurb || '')).toLowerCase();
+    if (/remote|desk|interpretation|monitoring|analysis/.test(t)) return 'Remote';
+    if (/survey|transect|field|snorkel|inspect|tower/.test(t)) return 'Field';
+    return 'On-site';
+  }
+  function modeOfExp(e) {
+    if (e.mode) return e.mode;
+    var b = builtinMode('experience', 'role', e.role); if (b) return b;
+    var l = (e.loc || '').toLowerCase(), r = (e.role || '').toLowerCase();
+    if (l.indexOf('remote') >= 0) return 'Remote';
+    if (l.indexOf('hybrid') >= 0) return 'Hybrid';
+    if (/surveyor|field|ews/.test(r)) return 'Field';
+    return 'On-site';
+  }
+
+  /* ---------- documenter (vertical auto-scroll field evidence) ---------- */
+  function renderDocumenter(d) {
+    var host = el('documenter-mount');
+    if (!host) return;
+    var items = (d.documenter || []).filter(function (x) { return x && x.src; });
+    if (!items.length) { host.innerHTML = '<div class="doc-empty">Add field photos via Admin &#9656; Documenter, or a Google Drive image link.</div>'; return; }
+    function card(x) {
+      return '<figure class="doc-card"><img src="' + esc(x.src) + '" alt="' + esc(x.place || 'field') +
+        '" onerror="this.parentNode.style.display=\'none\'">' +
+        '<figcaption class="cap"><b>' + esc(x.place || '') + '</b>' + (x.caption ? '<br>' + esc(x.caption) : '') + '</figcaption></figure>';
+    }
+    var a = items.filter(function (_, i) { return i % 2 === 0; });
+    var b = items.filter(function (_, i) { return i % 2 === 1; });
+    if (!b.length) b = a;
+    function track(list, cls) { var inner = list.map(card).join(''); return '<div class="doc-col"><div class="doc-track' + cls + '">' + inner + inner + '</div></div>'; }
+    host.innerHTML = track(a, '') + track(b, ' rev');
+  }
 
   /* ============================================================
      MAP — pins are a REAL MapLibre GeoJSON layer (geo-registered)
