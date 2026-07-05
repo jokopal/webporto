@@ -436,6 +436,7 @@
   }
   function modeOfProject(p) {
     if (p.mode) return p.mode;
+    if (p.loc) return p.loc;   // sheet alias: a "loc" column = remote/onsite
     var b = builtinMode('projects', 'name', p.name); if (b) return b;
     var t = ((p.place || '') + ' ' + (p.org || '') + ' ' + (p.blurb || '')).toLowerCase();
     if (/remote|desk|interpretation|monitoring|analysis/.test(t)) return 'Remote';

@@ -677,34 +677,74 @@ window.DEFAULT_DATA = {
   ],
   "documenter": [
     {
-      "src": "uploads/photo-1782995995213.png",
-      "place": "Seagrass survey · Bali",
-      "caption": "Sample photo - replace via Admin or Google Drive link"
+      "src": "uploads/docs/cjsbusbfwqjfweiq.jpg",
+      "place": "UAV / Drone survey",
+      "caption": "Field acquisition team"
     },
     {
-      "src": "screenshots/map.png",
-      "place": "GIS output · field footprint",
-      "caption": "Sample - replace with your field documentation"
+      "src": "uploads/docs/1.jpg",
+      "place": "Komunitas Geosains UGM",
+      "caption": "Student-organization leadership"
     },
     {
-      "src": "uploads/photo-1782995995213.png",
-      "place": "Benthic survey · Pulau Banyak",
-      "caption": "Sample photo - replace via Admin"
+      "src": "uploads/docs/de.jpg",
+      "place": "Fieldwork",
+      "caption": "Field documentation"
     },
     {
-      "src": "screenshots/map.png",
-      "place": "Berau Coal · compliance mapping",
-      "caption": "Sample - replace via Admin"
+      "src": "uploads/docs/66.jpg",
+      "place": "Survey",
+      "caption": "Field survey"
     },
     {
-      "src": "uploads/photo-1782995995213.png",
-      "place": "EWS survey · Central Java",
-      "caption": "Sample photo - replace via Admin"
+      "src": "uploads/docs/565.jpg",
+      "place": "Fieldwork",
+      "caption": "Field documentation"
     },
     {
-      "src": "screenshots/map.png",
-      "place": "GEE training · Jakarta",
-      "caption": "Sample - replace via Admin"
+      "src": "uploads/docs/22.jpg",
+      "place": "Survey team",
+      "caption": "Fieldwork"
+    },
+    {
+      "src": "uploads/docs/dasda.jpg",
+      "place": "Fieldwork",
+      "caption": "Field documentation"
+    },
+    {
+      "src": "uploads/docs/2.jpg",
+      "place": "Survey",
+      "caption": "Field survey"
+    },
+    {
+      "src": "uploads/docs/4.jpg",
+      "place": "Fieldwork",
+      "caption": "Field documentation"
+    },
+    {
+      "src": "uploads/docs/csdsds.jpg",
+      "place": "Survey team",
+      "caption": "Fieldwork"
+    },
+    {
+      "src": "uploads/docs/ds.jpg",
+      "place": "Fieldwork",
+      "caption": "Field documentation"
+    },
+    {
+      "src": "uploads/docs/33.jpg",
+      "place": "Survey",
+      "caption": "Field survey"
+    },
+    {
+      "src": "uploads/docs/3.jpg",
+      "place": "Fieldwork",
+      "caption": "Field documentation"
+    },
+    {
+      "src": "uploads/docs/42432.jpg",
+      "place": "Survey team",
+      "caption": "Fieldwork"
     }
   ]
 };
