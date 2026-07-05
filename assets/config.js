@@ -23,7 +23,7 @@ window.MJG_CONFIG = {
   /* Google Sheets CMS - the LIVE source once the Web App is public ("Anyone"). */
   sheets: {
     enabled: true,
-    webAppUrl: 'https://script.google.com/macros/s/AKfycbxBU3HywK3gNrRG0xk0kDK1DqwwUtBp9lk9xb6hz5lPp8im58gozYFBR46aq5ME9ZAr2A/exec',
+    webAppUrl: 'https://script.google.com/macros/s/AKfycbxTImSK4AQaroEv3vlImi5bvIZqZ1rw4KzRqkinyRo3PkWxsrIke4xfz-diwWJyfQoE2A/exec',
     token: 'ca46c52855953e629d0950e4d4533185bc813b44217a4099'  // must match `var TOKEN` in the Apps Script
   },
 
