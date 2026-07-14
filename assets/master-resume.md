@@ -25,81 +25,81 @@ Cartography and Remote Sensing (GIS) graduate from Universitas Gadjah Mada (GPA 
 
 ## Professional Experience
 
-### Assistant Specialist, Remote Sensing and GIS (COAST TA Project)  —  Jul 2026 - Present
+### Assistant Specialist, Remote Sensing and GIS (COAST TA Project)  |  Jul 2026 - Present
 *Seacrest Indonesia | Contract, Remote (Central Java coast)*
 
 - Delivered a full satellite dataset, land-classification and stratification maps, RS methodology documentation, multi-layer overlays and village-level recap: all six analytical deliverables on schedule under a results-based contract for a blue-carbon rehabilitation feasibility study.
 
-### Remote Sensing Analyst, Coastal Water-Quality  —  Jun 2026 - Present
+### Remote Sensing Analyst, Coastal Water-Quality  |  Jun 2026 - Present
 *Wildlife Conservation Society | Freelance (West Nusa Tenggara & South Bolaang Mongondow)*
 
 - Monitored water quality across 347 aquaculture zones and 16 Marine Protected Areas with bi-seasonal Sentinel-2 (TSS, Chlorophyll-a, salinity); benchmarked retrieval algorithms against in-situ data and confirmed compliance with PP 22/2021.
 - Led multi-temporal TSS monitoring (ZOM 497) with 17 Sentinel-2 scenes and 7 algorithms; delivered technical reports for marine spatial planning and conservation zoning.
 
-### Spatial Compliance Analyst, License Department  —  Sep 2025 - Dec 2025
+### Spatial Compliance Analyst, License Department  |  Sep 2025 - Dec 2025
 *PT Berau Coal | Internship, On-site (Berau, East Kalimantan)*
 
 - Monitored mining permit and concession boundaries, land overlaps and violations with GIS and remote monitoring for regulatory compliance and risk mitigation.
 - Built and shipped a full-stack Web GIS licensing dashboard (OpenLayers, Supabase/PostGIS, RBAC) with automated Apps Script, WhatsApp and email notifications.
 
-### Student Trainee, Talent Development Program (Geospatial & Data Analytics)  —  Aug 2025 - Dec 2025
+### Student Trainee, Talent Development Program (Geospatial & Data Analytics)  |  Aug 2025 - Dec 2025
 *Sinar Mas Agribusiness and Food (TDC UGM x Sinarmas) | Hybrid*
 
 - Delivered an AI-driven ESG capstone for the palm-oil business ("Palm Oil, but Make It Cool", Group 3, 25 Nov 2025); strengthened data analytics, project management and strategic communication with cross-functional teams.
 
-### Co-Trainer, Intermediate Google Earth Engine Training  —  Dec 2025
+### Co-Trainer, Intermediate Google Earth Engine Training  |  Dec 2025
 *GGGI Indonesia (Jakarta, On-site)*
 
 - Facilitated GEE live-coding (Sentinel-2, Random Forest, accuracy assessment) supporting standardised national benthic-habitat mapping and blue-carbon monitoring.
 
-### Volunteer Geospatial Analyst, Disaster Charter Rapid Flood Mapping  —  Dec 2025
+### Volunteer Geospatial Analyst, Disaster Charter Rapid Flood Mapping  |  Dec 2025
 *Universitas Gadjah Mada (Aceh, West & North Sumatra)*
 
 - Pre and post-disaster image interpretation and digitisation of flood and landslide extents and affected infrastructure, attributed to BRIN geospatial standards for impact assessment and emergency response.
 
-### Surveyor, Tsunami Early-Warning System  —  Aug 2025
+### Surveyor, Tsunami Early-Warning System  |  Aug 2025
 *CV Spiro Energy | Freelance, Field (Central Java)*
 
 - Inspected and tested EWS siren/transmitter towers with the BPBD team and applied radio-frequency programming via Motorola CPS for reliable early-warning communication.
 
-### Research Assistant, Blue Carbon Research Group (+ Laboratory & Teaching Assistant)  —  Aug 2024 - Present
+### Research Assistant, Blue Carbon Research Group (+ Laboratory & Teaching Assistant)  |  Aug 2024 - Present
 *Faculty of Geography, Universitas Gadjah Mada | Hybrid*
 
 - Applied machine learning (Random Forest, SVM), Google Earth Engine and Sentinel-2 to benthic-habitat and blue-carbon mapping; feature engineering (deglint, DII, PCA/KPCA) and accuracy assessment.
 - Field surveyor for the National Seagrass Map (UGM, KKP, BRIN, BIG, University of Queensland): 16 benthic spot-check sites (Madura), 91 transect samples (Pulau Banyak, Aceh Singkil), snorkelling photo-transects at Sanur (Bali), processing across 7 Indonesian regions.
 - Laboratory and teaching assistant for 54 students across spatial data infrastructure and enterprise GIS (ArcGIS Enterprise, GeoServer, PostGIS, GeoNode), active remote sensing (LiDAR, radar; SNAP, ENVI, FUSION), and land surveying.
 
-### Speaker, Scientific Writing Training  —  Oct 2024
+### Speaker, Scientific Writing Training  |  Oct 2024
 *Building Information Modelling (BIM) Community, DTS SV UGM*
 
 - Delivered comprehensive scientific-writing training (academic structure, effective data presentation, reference management) to the BIM community at the Department of Civil Engineering, Vocational School, UGM.
 
-### Operational Coordinator, Mine-Eye Aerial Acquisition (Astranauts Finalist)  —  Oct 2024 - Jan 2025
+### Operational Coordinator, Mine-Eye Aerial Acquisition (Astranauts Finalist)  |  Oct 2024 - Jan 2025
 *Mine Eye Gama, Astranauts & Innovlab 2024 by Astra Digital*
 
 - Coordinated cross-functional teams to build Mine-Eye, a remote LiDAR/drone geospatial-processing solution for PT Pama Persada Nusantara mining areas; prototyped a Ground Control Station and a drone-LiDAR tracking web app.
 
-### Undergraduate Researcher, Blue Carbon & Seagrass Mapping (ML + Multispectral RS)  —  Dec 2024
+### Undergraduate Researcher, Blue Carbon & Seagrass Mapping (ML + Multispectral RS)  |  Dec 2024
 *UGM, Fundamental Research Grant 2024*
 
 - Applied multispectral remote sensing and machine learning to rapid mapping of seagrass carbon stocks (feature engineering, regression-model comparison, spatial upscaling); outputs published in an international conference and a journal.
 
-### Team Lead, Urban Portable Agriculture (SOTECH Pertamina 2024)  —  May 2024 - Jul 2024
+### Team Lead, Urban Portable Agriculture (SOTECH Pertamina 2024)  |  May 2024 - Jul 2024
 *Mina Padi Program, PT Kilang Pertamina RU III Plaju x AntaraDjaya (Plaju, Palembang)*
 
 - Led a team to build an IoT integrated vertical-farming system (98.7% accuracy, sub-5-second response); secured 1st Runner-Up in the technology category.
 
-### Main Author & Presenter, 7th National Geomatics Seminar  —  May 2024
+### Main Author & Presenter, 7th National Geomatics Seminar  |  May 2024
 *Geospatial Information Agency (BIG), Cibinong*
 
 - Presented and published a predictive-modelling study on air-concentration change from deforestation in the IKN area; selected for the official national proceedings.
 
-### Surveyor, Street-Lighting (PJU) Data Collection Phase V  —  Oct 2023 - Nov 2023
+### Surveyor, Street-Lighting (PJU) Data Collection Phase V  |  Oct 2023 - Nov 2023
 *UPT PJU, Dinas PUPKP Kota Yogyakarta*
 
 - Surveyed and verified kWh-meter data for about 400 street-lighting points; supported data analysis for lighting-infrastructure optimisation.
 
-### Freelance Video Editor  —  Nov 2023 - Jan 2024
+### Freelance Video Editor  |  Nov 2023 - Jan 2024
 *ExcellencIA Learning Center and Consultant | Remote*
 
 - Edited video courses and consulting content (DaVinci Resolve, CapCut), improving audio-visual quality and visual storytelling for an education platform.
@@ -124,13 +124,13 @@ Cartography and Remote Sensing (GIS) graduate from Universitas Gadjah Mada (GPA 
 
 ## Education
 
-### Universitas Gadjah Mada, Yogyakarta  —  Jul 2022 - Jun 2026
+### Universitas Gadjah Mada, Yogyakarta  |  Jul 2022 - Jun 2026
 *Bachelor of Science, Cartography and Remote Sensing (GIS) - graduated June 2026*
 
 - GPA 3.60/4.00; Kartu Indonesia Pintar (KIP) scholarship awardee.
 - Relevant coursework: Geo-AI, Active Remote Sensing, Spatial Analysis and Modelling, Spatial Programming, Terrain and Imagery Analysis, Analytical and Thematic Cartography, Geospatial Statistical Methods, Survey and Mapping Project Management.
 
-### SMK Negeri 1 Lolofitu Moi, Nias Barat  —  2019 - 2022
+### SMK Negeri 1 Lolofitu Moi, Nias Barat  |  2019 - 2022
 *Computer and Network Engineering (Teknik Komputer dan Jaringan)*
 
 - Final grade 92.00/100; foundation in computer maintenance and wireless networking.
