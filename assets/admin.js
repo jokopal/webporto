@@ -161,6 +161,7 @@
         '<button class="btn" id="adm-export">export .json</button>' +
         '<button class="btn" id="adm-copy">copy json</button>' +
         '<button class="btn ghost" id="adm-sheets">push to sheets</button>' +
+        '<button class="btn ghost" id="adm-master">master resume</button>' +
         '<button class="btn ghost" id="adm-reset">reset built-in</button>' +
       '</div>';
     document.body.appendChild(back);
@@ -170,7 +171,42 @@
     panel.querySelector('#adm-export').onclick = doExport;
     panel.querySelector('#adm-copy').onclick = doCopy;
     panel.querySelector('#adm-sheets').onclick = doPushSheets;
+    panel.querySelector('#adm-master').onclick = doMaster;
     panel.querySelector('#adm-reset').onclick = doReset;
+  }
+
+  /* ---- master resume (secret): view / copy / download the full master .md ---- */
+  async function doMaster() {
+    var md = '';
+    try { var res = await fetch('assets/master-resume.md?_=' + Date.now()); md = await res.text(); }
+    catch (e) { md = '# Master resume unavailable\n\nCould not load assets/master-resume.md.'; }
+    var wrap = document.createElement('div');
+    wrap.className = 'adm-login on'; wrap.style.zIndex = '10002';
+    wrap.innerHTML =
+      '<div class="box" style="width:min(760px,94vw);max-height:88vh;display:flex;flex-direction:column;">' +
+      '<div class="bar">master resume - C:\\MJG\\master-resume.md' +
+      '<span class="x" id="mr-x" style="margin-left:auto;cursor:pointer;">close</span></div>' +
+      '<div class="in" style="overflow:auto;flex:1;">' +
+      '<textarea id="mr-text" readonly style="width:100%;min-height:52vh;font-family:var(--mono);font-size:11.5px;line-height:1.5;"></textarea>' +
+      '<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">' +
+      '<button class="btn primary" id="mr-copy">copy markdown</button>' +
+      '<button class="btn" id="mr-dl">download .md</button>' +
+      '<a class="btn" id="mr-open" target="_blank" rel="noopener">open raw</a>' +
+      '</div></div></div>';
+    document.body.appendChild(wrap);
+    wrap.querySelector('#mr-text').value = md;
+    wrap.querySelector('#mr-open').href = 'assets/master-resume.md';
+    function close() { wrap.remove(); }
+    wrap.querySelector('#mr-x').onclick = close;
+    wrap.addEventListener('click', function (e) { if (e.target === wrap) close(); });
+    wrap.querySelector('#mr-copy').onclick = async function () {
+      try { await navigator.clipboard.writeText(md); toast('master resume copied'); } catch (e) { wrap.querySelector('#mr-text').select(); }
+    };
+    wrap.querySelector('#mr-dl').onclick = function () {
+      var blob = new Blob([md], { type: 'text/markdown' });
+      var a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+      a.download = 'Menliman_Joyfal_Gulo_MASTER_Resume.md'; a.click(); toast('downloaded .md');
+    };
   }
 
   function renderTabs() {

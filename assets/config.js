@@ -52,9 +52,9 @@ window.DEFAULT_DATA = {
     "lastName": "Gulo",
     "greeting": "hi, i'm",
     "roleChip": "GIS · REMOTE SENSING · GEO-AI",
-    "availability": "Open to work · Fresh graduate 2026",
+    "availability": "Fresh graduate (Jun 2026) · Open to work",
     "headline": "Independent GIS Developer (Jokopal) | Remote Sensing & GIS at Seacrest Indonesia and WCS | Blue Carbon Research, UGM",
-    "summary": "Final-year Geographic Information Science undergraduate (GPA 3.58/4.00, KIP scholar) at the Faculty of Geography, Universitas Gadjah Mada, specialising in GIS, cartography and remote sensing (Sentinel-2, LiDAR, radar) for blue-carbon, seagrass and coastal water-quality mapping. I build independent GIS products as Jokopal, including the open-source desktop app BlueMap: Coastal AutoMapper, and integrate machine learning with GIS for Geo-AI solutions. Open to full-time roles and collaboration.",
+    "summary": "Geographic Information Science graduate (GPA 3.60/4.00, KIP scholar) from the Faculty of Geography, Universitas Gadjah Mada, graduated June 2026. I specialise in GIS, cartography and remote sensing (Sentinel-2, LiDAR, radar) for blue-carbon, seagrass and coastal water-quality mapping, and I build independent GIS products as Jokopal, including the open-source desktop app BlueMap: Coastal AutoMapper, integrating machine learning with GIS for Geo-AI solutions. Open to full-time roles and collaboration.",
     "location": "Yogyakarta, Indonesia",
     "coordLabel": "7.77°S 110.38°E",
     "email": "menlimanjoyfalgulo@gmail.com",
@@ -66,7 +66,7 @@ window.DEFAULT_DATA = {
   },
   "stats": [
     {
-      "num": "3.58",
+      "num": "3.60",
       "lbl": "GPA / 4.00"
     },
     {
@@ -560,9 +560,9 @@ window.DEFAULT_DATA = {
   ],
   "education": [
     {
-      "period": "Jul 2022 - May 2026 (expected)",
+      "period": "Jul 2022 - Jun 2026",
       "school": "Universitas Gadjah Mada",
-      "degree": "Bachelor of Science, Cartography & Remote Sensing. GPA 3.58/4.00, KIP scholar. Focus: Geo-AI, Active Remote Sensing, Spatial Analysis & Modelling, Spatial Programming, Analytical & Thematic Cartography."
+      "degree": "Bachelor of Science, Cartography & Remote Sensing (Kartografi & Penginderaan Jauh). Graduated Jun 2026. GPA 3.60/4.00, KIP scholar. Focus: Geo-AI, Active Remote Sensing, Spatial Analysis & Modelling, Spatial Programming, Analytical & Thematic Cartography."
     },
     {
       "period": "Jun 2019 - Apr 2022",
