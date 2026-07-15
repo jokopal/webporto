@@ -206,6 +206,8 @@
      ============================================================ */
   MJG.renderAll = function () {
     var d = MJG.data;
+    // map pins newest-to-oldest (list, pin numbers and popups all stay in sync)
+    if (d && d.projects) d.projects.sort(function (a, b) { return startVal(b.period) - startVal(a.period); });
     renderProfile(d);
     renderStats(d);
     renderProjectsList(d);
@@ -438,22 +440,22 @@
     for (var i = 0; i < arr.length; i++) { if (arr[i][field] === val && arr[i].mode) return arr[i].mode; }
     return null;
   }
+  // Only three modes: On-site, Remote, Hybrid (legacy "Field" collapses to On-site).
+  function normMode(m) { m = String(m || ''); return /^field$/i.test(m) ? 'On-site' : m; }
   function modeOfProject(p) {
-    if (p.mode) return p.mode;
-    if (p.loc) return p.loc;   // sheet alias: a "loc" column = remote/onsite
-    var b = builtinMode('projects', 'name', p.name); if (b) return b;
+    if (p.mode) return normMode(p.mode);
+    if (p.loc) return normMode(p.loc);   // sheet alias: a "loc" column = mode
+    var b = builtinMode('projects', 'name', p.name); if (b) return normMode(b);
     var t = ((p.place || '') + ' ' + (p.org || '') + ' ' + (p.blurb || '')).toLowerCase();
     if (/remote|desk|interpretation|monitoring|analysis/.test(t)) return 'Remote';
-    if (/survey|transect|field|snorkel|inspect|tower/.test(t)) return 'Field';
     return 'On-site';
   }
   function modeOfExp(e) {
-    if (e.mode) return e.mode;
-    var b = builtinMode('experience', 'role', e.role); if (b) return b;
-    var l = (e.loc || '').toLowerCase(), r = (e.role || '').toLowerCase();
+    if (e.mode) return normMode(e.mode);
+    var b = builtinMode('experience', 'role', e.role); if (b) return normMode(b);
+    var l = (e.loc || '').toLowerCase();
     if (l.indexOf('remote') >= 0) return 'Remote';
     if (l.indexOf('hybrid') >= 0) return 'Hybrid';
-    if (/surveyor|field|ews/.test(r)) return 'Field';
     return 'On-site';
   }
 

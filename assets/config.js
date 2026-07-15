@@ -206,7 +206,7 @@ window.DEFAULT_DATA = {
       "lng": 115.24,
       "lat": -8.72,
       "blurb": "Snorkelling photo-transect survey of benthic and seagrass habitats along Bali coasts (OM System underwater camera) for the EQUITY World Class University program.",
-      "mode": "Field"
+      "mode": "On-site"
     },
     {
       "name": "National Seagrass Map, Field Survey",
@@ -216,7 +216,7 @@ window.DEFAULT_DATA = {
       "lng": 113.47,
       "lat": -7.02,
       "blurb": "16 benthic spot-check sites along the north coast of East Java for the Indonesia Seagrass Map: Framework and Implementation.",
-      "mode": "Field"
+      "mode": "On-site"
     },
     {
       "name": "National Seagrass Map, Field Survey",
@@ -226,7 +226,7 @@ window.DEFAULT_DATA = {
       "lng": 97.32,
       "lat": 2.07,
       "blurb": "91 transect samples of benthic and seagrass habitats in the Banyak Islands for the National Seagrass Map.",
-      "mode": "Field"
+      "mode": "On-site"
     },
     {
       "name": "Seagrass Dynamics Study",
@@ -236,7 +236,7 @@ window.DEFAULT_DATA = {
       "lng": 116.28,
       "lat": -8.89,
       "blurb": "Case study mapping seagrass dynamics in a developing coastal area (journal publication).",
-      "mode": "Field"
+      "mode": "On-site"
     },
     {
       "name": "Rapid Flood Mapping (Disaster Charter)",
@@ -296,7 +296,7 @@ window.DEFAULT_DATA = {
       "lng": 109.015,
       "lat": -7.726,
       "blurb": "EWS field surveyor: siren/transmitter tower inspection and Motorola CPS radio-frequency programming.",
-      "mode": "Field"
+      "mode": "On-site"
     },
     {
       "name": "Blue Carbon Research & Geospatial Labs",
@@ -306,16 +306,6 @@ window.DEFAULT_DATA = {
       "lng": 110.3771,
       "lat": -7.7669,
       "blurb": "Blue-carbon research and lab instruction: remote sensing, land surveying, cartography and spatial databases (54 students across four practicums).",
-      "mode": "On-site"
-    },
-    {
-      "name": "Roots, TKJ & First Maps",
-      "org": "SMKN 1 Lolofitu Moi",
-      "period": "2019-22",
-      "place": "Nias Barat",
-      "lng": 97.75,
-      "lat": 1.15,
-      "blurb": "Computer & network engineering foundation on Nias island, where the geospatial journey began.",
       "mode": "On-site"
     },
     {
@@ -388,7 +378,7 @@ window.DEFAULT_DATA = {
       "type": "research",
       "link": "",
       "desc": "National benthic and seagrass mapping (Indonesia Seagrass Map: Framework and Implementation, supported by the David & Lucile Packard Foundation): 16 benthic spot-check sites in Madura, 91 transect samples in Pulau Banyak, snorkelling photo-transects at Sanur (Bali) with an OM System underwater camera, plus field surveys and geospatial processing across 7 Indonesian regions.",
-      "mode": "Field"
+      "mode": "On-site"
     },
     {
       "role": "Spatial Compliance Analyst, Dept. License",
@@ -418,7 +408,7 @@ window.DEFAULT_DATA = {
       "type": "work",
       "link": "",
       "desc": "EWS surveyor and intern technician: inspected and tested siren/transmitter towers with the BPBD team and applied radio-frequency programming via Motorola CPS for reliable early-warning communication.",
-      "mode": "Field"
+      "mode": "On-site"
     },
     {
       "role": "Research Assistant, Blue Carbon Research Group",
@@ -498,7 +488,7 @@ window.DEFAULT_DATA = {
       "type": "work",
       "link": "",
       "desc": "Surveyed street-lighting (PJU) kWh meters: measured and recorded meter data, verified installation condition, and supported data analysis for street-lighting infrastructure management.",
-      "mode": "Field"
+      "mode": "On-site"
     },
     {
       "role": "Head of Internal Affairs",

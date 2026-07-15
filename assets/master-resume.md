@@ -131,9 +131,15 @@ Cartography and Remote Sensing (GIS) graduate from Universitas Gadjah Mada (GPA 
 - Relevant coursework: Geo-AI, Active Remote Sensing, Spatial Analysis and Modelling, Spatial Programming, Terrain and Imagery Analysis, Analytical and Thematic Cartography, Geospatial Statistical Methods, Survey and Mapping Project Management.
 
 ### SMK Negeri 1 Lolofitu Moi, Nias Barat  |  2019 - 2022
-*Computer and Network Engineering (Teknik Komputer dan Jaringan)*
+*Vocational High School - Computer and Network Engineering (Teknik Komputer dan Jaringan)*
 
 - Final grade 92.00/100; foundation in computer maintenance and wireless networking.
+
+### SMP Negeri 2 Lolofitu Moi, Nias Barat  |  2016 - 2019
+*Junior High School (SMP)*
+
+### SD Negeri 071073 Wango, Nias Barat  |  2010 - 2016
+*Elementary School (SD)*
 
 ## Publications
 
