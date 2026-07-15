@@ -41,7 +41,7 @@
 
   function coordLabel(lng, lat) {
     return Math.abs(lat).toFixed(2) + '°' + (lat < 0 ? 'S' : 'N') + ', ' +
-           Math.abs(lng).toFixed(2) + '°' + (lng < 0 ? 'W' : 'E');
+      Math.abs(lng).toFixed(2) + '°' + (lng < 0 ? 'W' : 'E');
   }
 
   /* ---------- cache helpers ---------- */
@@ -179,16 +179,16 @@
       'default': 'built-in data'
     };
     var age = getCacheAge();
-    var ageStr = age ? ' · ' + (age < 60000 ? 'just now' : age < 3600000 ? Math.round(age/60000) + 'm ago' : Math.round(age/3600000) + 'h ago') : '';
+    var ageStr = age ? ' · ' + (age < 60000 ? 'just now' : age < 3600000 ? Math.round(age / 60000) + 'm ago' : Math.round(age / 3600000) + 'h ago') : '';
     badge.innerHTML = 'data: <b>' + (labels[MJG.source] || MJG.source) + '</b>' + ageStr;
   }
 
   MJG.saveLocal = function (data) {
     try { localStorage.setItem(LS_KEY, JSON.stringify(data)); } catch (e) { console.warn(e); }
     // Clear sheets cache when local edits are made
-    try { localStorage.removeItem(CACHE_KEY); } catch (e) {}
+    try { localStorage.removeItem(CACHE_KEY); } catch (e) { }
   };
-  MJG.clearLocal = function () { try { localStorage.removeItem(LS_KEY); } catch (e) {} };
+  MJG.clearLocal = function () { try { localStorage.removeItem(LS_KEY); } catch (e) { } };
 
   // Ensure every top-level key exists even if a partial object is loaded from
   // the sheet or localStorage. (Restored: the caching refactor had dropped it,
@@ -230,28 +230,28 @@
       folderCol('left', [['#profile', 'profile'], ['#map', 'works']]) +
       folderCol('right', [['#skills', 'contact'], ['#education', 'resume']]) +
       '<div class="window profile-window">' +
-        titlebar('C:\\MJG\\profile.exe', null, '· ▢ ✕') +
-        '<div class="profile-body">' +
-          '<div class="profile-photo"><div class="frame">' +
-            '<img src="' + esc(p.photo) + '" alt="' + esc(p.firstName + ' ' + p.lastName) + '"></div></div>' +
-          '<div class="profile-info">' +
-            '<div class="greet">' + esc(p.greeting) + '</div>' +
-            '<h1>' + esc(p.firstName) + ' <span class="accent">' + esc(p.lastName) + '</span></h1>' +
-            '<div class="chip-row">' +
-              '<span class="role-chip">' + esc(p.roleChip) + '</span>' +
-              (p.availability ? '<span class="avail-chip"><span class="avail-dot"></span>' + esc(p.availability) + '</span>' : '') +
-            '</div>' +
-            '<p class="summary">' + esc(p.summary) + '</p>' +
-            '<div class="contact-row">' +
-              '<a class="pill link" href="mailto:' + esc(p.email) + '"><span class="sq"></span>email</a>' +
-              '<a class="pill link" href="' + esc(p.linkedin) + '" target="_blank" rel="noopener"><span class="sq"></span>linkedin</a>' +
-              (p.instagram ? '<a class="pill link" href="' + esc(p.instagram) + '" target="_blank" rel="noopener"><span class="sq"></span>instagram</a>' : '') +
-              '<button class="pill lock" id="contact-lock" type="button" title="Direct contact is private"><span class="sq"></span>contact <span class="lockico">&#128274;</span></button>' +
-              '<span class="pill static"><span class="sq"></span>' + esc(p.location) + '</span>' +
-            '</div>' +
-          '</div>' +
-        '</div>' +
-        statsRow(d) +
+      titlebar('C:\\MJG\\profile.exe', null, '· ▢ ✕') +
+      '<div class="profile-body">' +
+      '<div class="profile-photo"><div class="frame">' +
+      '<img src="' + esc(p.photo) + '" alt="' + esc(p.firstName + ' ' + p.lastName) + '"></div></div>' +
+      '<div class="profile-info">' +
+      '<div class="greet">' + esc(p.greeting) + '</div>' +
+      '<h1>' + esc(p.firstName) + ' <span class="accent">' + esc(p.lastName) + '</span></h1>' +
+      '<div class="chip-row">' +
+      '<span class="role-chip">' + esc(p.roleChip) + '</span>' +
+      (p.availability ? '<span class="avail-chip"><span class="avail-dot"></span>' + esc(p.availability) + '</span>' : '') +
+      '</div>' +
+      '<p class="summary">' + esc(p.summary) + '</p>' +
+      '<div class="contact-row">' +
+      '<a class="pill link" href="mailto:' + esc(p.email) + '"><span class="sq"></span>email</a>' +
+      '<a class="pill link" href="' + esc(p.linkedin) + '" target="_blank" rel="noopener"><span class="sq"></span>linkedin</a>' +
+      (p.instagram ? '<a class="pill link" href="' + esc(p.instagram) + '" target="_blank" rel="noopener"><span class="sq"></span>instagram</a>' : '') +
+      '<button class="pill lock" id="contact-lock" type="button" title="Direct contact is private"><span class="sq"></span>whatsapp <span class="lockico">&#128274;</span></button>' +
+      '<span class="pill static"><span class="sq"></span>' + esc(p.location) + '</span>' +
+      '</div>' +
+      '</div>' +
+      '</div>' +
+      statsRow(d) +
       '</div>';
     // gate the private contact behind a tooltip (WhatsApp/phone are not published)
     var lock = el('contact-lock');
@@ -312,14 +312,14 @@
       var link = p.link ? '<a class="prod-link" href="' + esc(p.link) + '" target="_blank" rel="noopener">↗ ' + esc(linkHost(p.link)) + '</a>' : '';
       return '<div class="exp-card prod-card">' +
         '<div class="titlebar simple"><span class="tag" style="background:var(--accent)"></span>' + esc(p.name) +
-          (p.status ? '<span class="prod-status">' + esc(p.status) + '</span>' : '') + '</div>' +
+        (p.status ? '<span class="prod-status">' + esc(p.status) + '</span>' : '') + '</div>' +
         '<div class="body">' +
-          '<div class="prod-tagline">' + esc(p.tagline || '') + '</div>' +
-          (p.period ? '<div class="prod-period">' + esc(p.period) + '</div>' : '') +
-          '<p>' + esc(p.desc || '') + '</p>' +
-          '<div class="tags">' + tech + '</div>' +
-          (p.impact ? '<div class="prod-impact">' + esc(p.impact) + '</div>' : '') +
-          link +
+        '<div class="prod-tagline">' + esc(p.tagline || '') + '</div>' +
+        (p.period ? '<div class="prod-period">' + esc(p.period) + '</div>' : '') +
+        '<p>' + esc(p.desc || '') + '</p>' +
+        '<div class="tags">' + tech + '</div>' +
+        (p.impact ? '<div class="prod-impact">' + esc(p.impact) + '</div>' : '') +
+        link +
         '</div></div>';
     }).join('');
   }
@@ -335,13 +335,13 @@
     var timeline = '<div class="timeline"><div class="rail"></div>' + exps.map(function (e) {
       return '<div class="exp" data-type="' + esc(e.type) + '"><span class="node"></span>' +
         '<div class="card"><div class="head">' +
-          '<div><div class="role">' + esc(e.role) + '</div>' +
-          '<div class="org">' + esc(e.org) + '</div></div>' +
-          '<div class="meta">' + esc(e.period) + '<br>' + esc(e.loc || '') +
-          '<br><span class="type">' + esc(e.type) + '</span> ' +
-          '<span class="mode-tag ' + modeClass(modeOfExp(e)) + '">' + esc(modeOfExp(e)) + '</span></div>' +
+        '<div><div class="role">' + esc(e.role) + '</div>' +
+        '<div class="org">' + esc(e.org) + '</div></div>' +
+        '<div class="meta">' + esc(e.period) + '<br>' + esc(e.loc || '') +
+        '<br><span class="type">' + esc(e.type) + '</span> ' +
+        '<span class="mode-tag ' + modeClass(modeOfExp(e)) + '">' + esc(modeOfExp(e)) + '</span></div>' +
         '</div><div class="desc">' + esc(e.desc) +
-          (e.link ? ' <a class="exp-link" href="' + esc(e.link) + '" target="_blank" rel="noopener">↗ ' + esc(linkHost(e.link)) + '</a>' : '') +
+        (e.link ? ' <a class="exp-link" href="' + esc(e.link) + '" target="_blank" rel="noopener">↗ ' + esc(linkHost(e.link)) + '</a>' : '') +
         '</div></div></div>';
     }).join('') + '</div>';
     mount.innerHTML = filters + timeline;
@@ -417,8 +417,8 @@
     var p = d.profile;
     el('footer-mount').innerHTML =
       '<div class="footer-links">' +
-        '<a class="primary" href="mailto:' + esc(p.email) + '">' + esc(p.email) + '</a>' +
-        '<a class="ghost" href="' + esc(p.linkedin) + '" target="_blank" rel="noopener">' + esc(p.linkedinHandle) + '</a>' +
+      '<a class="primary" href="mailto:' + esc(p.email) + '">' + esc(p.email) + '</a>' +
+      '<a class="ghost" href="' + esc(p.linkedin) + '" target="_blank" rel="noopener">' + esc(p.linkedinHandle) + '</a>' +
       '</div>';
     el('footer-name').innerHTML = esc(p.firstName + ' ' + p.lastName) + '<span class="accent">_</span>';
   }
