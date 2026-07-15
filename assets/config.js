@@ -322,11 +322,11 @@ window.DEFAULT_DATA = {
       "name": "Mine-Eye Aerial Acquisition (LiDAR & Drone)",
       "org": "Mine Eye Gama · PT Pama Persada Nusantara",
       "period": "2024-25",
-      "place": "East Kalimantan (mine area)",
+      "place": "Astra Tower, Jakarta",
       "mode": "On-site",
-      "lng": 117.5,
-      "lat": 0.5,
-      "blurb": "Astranauts finalist: remote geospatial-processing solution using LiDAR and drones for mining areas; prototyped a Ground Control Station and a drone-LiDAR tracking web app."
+      "lng": 106.821,
+      "lat": -6.2103,
+      "blurb": "Astranauts finalist concept, pitched at Astra Tower (Jakarta): remote LiDAR and drone geospatial-processing for mining areas; prototyped a Ground Control Station and a drone-LiDAR tracking web app."
     }
   ],
   "experience": [
@@ -358,7 +358,7 @@ window.DEFAULT_DATA = {
       "type": "research",
       "link": "",
       "desc": "Monitored water quality across 347 aquaculture zones and 16 Marine Protected Areas using bi-seasonal Sentinel-2 (2023 to 2026) to estimate TSS, Chlorophyll-a and Salinity. Benchmarked algorithms per parameter, validated against in-situ sampling, and delivered technical reports for marine spatial planning and conservation zoning.",
-      "mode": "On-site"
+      "mode": "Remote"
     },
     {
       "role": "Remote Sensing Analyst, TSS Monitoring (ZOM 497)",
@@ -368,7 +368,7 @@ window.DEFAULT_DATA = {
       "type": "research",
       "link": "",
       "desc": "Led multi-temporal TSS monitoring with 17 Sentinel-2 scenes (2018 to 2026), comparing 7 retrieval algorithms validated against in-situ sampling. Identified Jaelani et al. (2016) as best-performing and confirmed compliance with PP 22/2021, delivering a technical report on coastal water-quality status.",
-      "mode": "On-site"
+      "mode": "Remote"
     },
     {
       "role": "Volunteer Geospatial Analyst, Disaster Charter Rapid Flood Mapping",
