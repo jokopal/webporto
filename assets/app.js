@@ -244,14 +244,18 @@
             '<p class="summary">' + esc(p.summary) + '</p>' +
             '<div class="contact-row">' +
               '<a class="pill link" href="mailto:' + esc(p.email) + '"><span class="sq"></span>email</a>' +
-              (p.whatsapp ? '<a class="pill link" href="' + esc(p.whatsapp) + '" target="_blank" rel="noopener"><span class="sq"></span>whatsapp</a>' : '') +
               '<a class="pill link" href="' + esc(p.linkedin) + '" target="_blank" rel="noopener"><span class="sq"></span>linkedin</a>' +
+              (p.instagram ? '<a class="pill link" href="' + esc(p.instagram) + '" target="_blank" rel="noopener"><span class="sq"></span>instagram</a>' : '') +
+              '<button class="pill lock" id="contact-lock" type="button" title="Direct contact is private"><span class="sq"></span>contact <span class="lockico">&#128274;</span></button>' +
               '<span class="pill static"><span class="sq"></span>' + esc(p.location) + '</span>' +
             '</div>' +
           '</div>' +
         '</div>' +
         statsRow(d) +
       '</div>';
+    // gate the private contact behind a tooltip (WhatsApp/phone are not published)
+    var lock = el('contact-lock');
+    if (lock) lock.addEventListener('click', function (e) { e.stopPropagation(); toggleContactPop(lock, p); });
     // taskbar coord + headline title
     el('tb-coord').textContent = p.coordLabel;
     document.title = p.firstName + ' ' + p.lastName + ' | GIS, Remote Sensing & Geo-AI';
@@ -322,7 +326,7 @@
 
   function renderExperience(d) {
     var mount = el('exp-mount');
-    var exps = d.experience || [];
+    var exps = (d.experience || []).slice().sort(function (a, b) { return startVal(b.period) - startVal(a.period); });
     var types = ['all'].concat(unique(exps.map(function (e) { return e.type; })));
     var filters = '<div class="exp-filters">' + types.map(function (t, i) {
       return '<button class="exp-filter' + (i === 0 ? ' active' : '') + '" data-type="' + esc(t) + '">' +
@@ -451,6 +455,40 @@
     if (l.indexOf('hybrid') >= 0) return 'Hybrid';
     if (/surveyor|field|ews/.test(r)) return 'Field';
     return 'On-site';
+  }
+
+  // Sort key from a period string -> year*12 + start month (higher = newer).
+  var MONTHS = { jan: 1, feb: 2, mar: 3, apr: 4, may: 5, jun: 6, jul: 7, aug: 8, sep: 9, oct: 10, nov: 11, dec: 12 };
+  function startVal(period) {
+    var s = String(period || '').toLowerCase();
+    var m = s.match(/([a-z]{3})[a-z]*\s+(\d{4})/);       // first "Mon YYYY"
+    if (m) return parseInt(m[2], 10) * 12 + (MONTHS[m[1]] || 6);
+    var y = s.match(/(\d{4})/);                            // year only
+    if (y) return parseInt(y[1], 10) * 12 + 6;
+    return 0;
+  }
+
+  // Private contact: WhatsApp/phone are not published; the lock points to socials.
+  function toggleContactPop(anchor, p) {
+    var ex = document.getElementById('contact-pop');
+    if (ex) { ex.remove(); return; }
+    var pop = document.createElement('div');
+    pop.id = 'contact-pop'; pop.className = 'contact-pop';
+    pop.innerHTML = '<div class="cp-msg">Direct line (WhatsApp) is private. Let’s connect here first, then I’ll share it:</div>' +
+      '<div class="cp-links">' +
+      '<a href="' + esc(p.linkedin) + '" target="_blank" rel="noopener">LinkedIn</a>' +
+      (p.instagram ? '<a href="' + esc(p.instagram) + '" target="_blank" rel="noopener">Instagram</a>' : '') +
+      '<a href="mailto:' + esc(p.email) + '">Email</a>' +
+      '</div>';
+    document.body.appendChild(pop);
+    var r = anchor.getBoundingClientRect();
+    var w = 260;
+    pop.style.width = w + 'px';
+    pop.style.left = Math.max(8, Math.min(window.scrollX + r.left, window.scrollX + document.documentElement.clientWidth - w - 10)) + 'px';
+    pop.style.top = (window.scrollY + r.bottom + 8) + 'px';
+    setTimeout(function () {
+      document.addEventListener('click', function h(ev) { if (!pop.contains(ev.target)) { pop.remove(); document.removeEventListener('click', h); } });
+    }, 0);
   }
 
   /* ---------- documenter (vertical auto-scroll field evidence) ---------- */

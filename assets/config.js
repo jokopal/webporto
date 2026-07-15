@@ -58,11 +58,10 @@ window.DEFAULT_DATA = {
     "location": "Yogyakarta, Indonesia",
     "coordLabel": "7.77°S 110.38°E",
     "email": "menlimanjoyfalgulo@gmail.com",
-    "phone": "+62 823-9703-8718",
-    "whatsapp": "https://wa.me/6282397038718",
     "linkedin": "https://www.linkedin.com/in/menlimanjoyfalgulo",
     "linkedinHandle": "/in/menlimanjoyfalgulo",
-    "photo": "uploads/photo-1782995995213.png"
+    "photo": "uploads/photo-1782995995213.png",
+    "instagram": "https://www.instagram.com/joyfalgulo"
   },
   "stats": [
     {
@@ -318,6 +317,16 @@ window.DEFAULT_DATA = {
       "lat": 1.15,
       "blurb": "Computer & network engineering foundation on Nias island, where the geospatial journey began.",
       "mode": "On-site"
+    },
+    {
+      "name": "Mine-Eye Aerial Acquisition (LiDAR & Drone)",
+      "org": "Mine Eye Gama · PT Pama Persada Nusantara",
+      "period": "2024-25",
+      "place": "East Kalimantan (mine area)",
+      "mode": "On-site",
+      "lng": 117.5,
+      "lat": 0.5,
+      "blurb": "Astranauts finalist: remote geospatial-processing solution using LiDAR and drones for mining areas; prototyped a Ground Control Station and a drone-LiDAR tracking web app."
     }
   ],
   "experience": [
@@ -500,6 +509,26 @@ window.DEFAULT_DATA = {
       "link": "",
       "desc": "Directed internal communications and operations for climate-change initiatives; drove strategic plans and cross-team collaboration.",
       "mode": "On-site"
+    },
+    {
+      "role": "Speaker, Scientific Writing Training",
+      "org": "BIM Community, DTS SV UGM",
+      "period": "Oct 2024",
+      "loc": "Yogyakarta",
+      "mode": "On-site",
+      "type": "leadership",
+      "link": "",
+      "desc": "Delivered scientific-writing training (academic structure, data presentation, reference management) to the Building Information Modelling community at the Department of Civil Engineering, Vocational School, UGM."
+    },
+    {
+      "role": "Freelance Video Editor",
+      "org": "ExcellencIA Learning Center & Consultant",
+      "period": "Nov 2023 - Jan 2024",
+      "loc": "Remote (Tangerang)",
+      "mode": "Remote",
+      "type": "work",
+      "link": "",
+      "desc": "Edited video courses and consulting content (DaVinci Resolve, CapCut), improving audio-visual quality and visual storytelling for an education platform."
     }
   ],
   "expertise": [

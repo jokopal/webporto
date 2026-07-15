@@ -284,6 +284,16 @@ footer.site{max-width:1180px;margin:0 auto;padding:24px 28px 60px;}
 .doc-card .cap b{color:var(--ink);}
 .doc-empty{grid-column:1 / -1;display:flex;align-items:center;justify-content:center;color:var(--soft);font-family:var(--mono);font-size:12px;text-align:center;}
 
+/* ---------- private contact (locked) ---------- */
+.pill.lock{cursor:pointer;background:var(--cream);color:var(--soft);}
+.pill.lock:hover{background:var(--ink);color:var(--cream);border-color:var(--ink);}
+.pill.lock .lockico{font-size:10px;line-height:1;}
+.contact-pop{position:absolute;z-index:9999;background:var(--panel);border:1.5px solid var(--line);border-radius:8px;box-shadow:4px 4px 0 rgba(33,30,25,0.15);padding:11px 13px;font-family:var(--sans);}
+.contact-pop .cp-msg{font-size:12px;color:var(--ink);line-height:1.45;margin-bottom:9px;}
+.contact-pop .cp-links{display:flex;flex-wrap:wrap;gap:7px;}
+.contact-pop .cp-links a{font-family:var(--mono);font-size:11px;text-decoration:none;color:var(--accent);border:1.5px solid var(--accent);border-radius:5px;padding:4px 10px;}
+.contact-pop .cp-links a:hover{background:var(--accent);color:#fff;}
+
 @media (max-width:720px){
   .taskbar nav{display:none;}
   .folder-col{display:none;}
